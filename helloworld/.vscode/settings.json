@@ -1,0 +1,23 @@
+{
+    "java.compile.nullAnalysis.mode": "disabled",
+    "dart.closingLabels": true,
+    "cSpell.words": [
+        "ARGB",
+        "bianco",
+        "helloworld",
+        "scarpe",
+        "uomo"
+    ],
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "java.configuration.runtimes": [
+        {
+            "name": "JavaSE-17",
+            "path": "C:\\Program Files\\Eclipse Adoptium\\jdk-17.0.14.7-hotspot\\",
+            "default": true
+        }
+    ],
+    "java.jdt.ls.java.home": "C:\\Program Files\\Eclipse Adoptium\\jdk-17.0.14.7-hotspot\\",
+    "cmake.sourceDirectory": "C:/Users/giuse/OneDrive/Desktop/Romania_Uni/Mobile System/SnapBasket/helloworld/build/windows/x64/extracted/firebase_cpp_sdk_windows",
+    "postman.settings.dotenv-detection-notification-visibility": false,
+    "cmake.ignoreCMakeListsMissing": true
+}
