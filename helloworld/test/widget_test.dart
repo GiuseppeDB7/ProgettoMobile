@@ -1,20 +1,19 @@
-import 'package:firebase_core/firebase_core.dart';
+// This is a basic Flutter widget test.
+//
+// To perform an interaction with a widget in your test, use the WidgetTester
+// utility in the flutter_test package. For example, you can send tap and scroll
+// gestures. You can also use WidgetTester to find child widgets in the widget
+// tree, read text, and verify that the values of widget properties are correct.
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:helloworld/firebase_options.dart';
 import 'package:helloworld/main.dart';
 
 void main() {
-  setUpAll(() async {
-    TestWidgetsFlutterBinding.ensureInitialized();
-    await Firebase.initializeApp(
-        options: DefaultFirebaseOptions.currentPlatform);
-  });
-
   testWidgets('Home page displays correctly', (WidgetTester tester) async {
     await tester.pumpWidget(const MyApp());
 
-    expect(find.text('Home'), findsOneWidget);
+    expect(find.text('HomePage'), findsOneWidget);
     expect(find.byType(AppBar), findsOneWidget);
     expect(find.byType(BottomNavigationBar), findsOneWidget);
   });
