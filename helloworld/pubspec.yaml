@@ -5,7 +5,7 @@ publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.17.0 <3.0.0"
+  sdk: ">=3.7.0 <4.0.0"  # Aggiornato a Dart SDK 3.7.0
 
 dependencies:
   flutter:
@@ -14,19 +14,19 @@ dependencies:
   cupertino_icons: ^1.0.8
   google_nav_bar: ^5.0.6
   provider: ^6.0.5
-  firebase_core: ^3.12.1
+  firebase_core: ^3.12.1  # Assicurati che firebase_core sia presente
   cloud_firestore: ^5.6.5
   firebase_auth: ^5.5.1
-  google_mlkit_text_recognition: ^0.14.0
+  google_mlkit_text_recognition: ^0.15.0
   image_picker: ^1.0.7
   image: ^4.0.17
-  fl_chart: ^0.55.0  # Modifichiamo a una versione più compatibile
+  fl_chart: ^0.70.0  # Versione compatibile con Dart SDK 3.7.0
   intl: ^0.20.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^5.0.0
+  flutter_lints: ^2.0.3  # Versione compatibile con Dart SDK 3.7.0
 
 flutter:
   uses-material-design: true

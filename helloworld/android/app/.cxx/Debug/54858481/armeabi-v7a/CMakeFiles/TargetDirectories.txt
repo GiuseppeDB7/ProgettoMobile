@@ -1,0 +1,2 @@
+C:/Users/giuse/OneDrive/Documenti/Universita/Terzo Anno/ProgrammazioneMobile/ProgettoMobile/helloworld/android/app/.cxx/Debug/54858481/armeabi-v7a/CMakeFiles/edit_cache.dir
+C:/Users/giuse/OneDrive/Documenti/Universita/Terzo Anno/ProgrammazioneMobile/ProgettoMobile/helloworld/android/app/.cxx/Debug/54858481/armeabi-v7a/CMakeFiles/rebuild_cache.dir
