@@ -26,7 +26,13 @@ jobs:
 
     - name: Build APK
       shell: bash
-      run: flutter build apk --release
+      run: |
+        echo "Building APK..."
+        flutter build apk --release
+        echo "APK build completed."
 
     - name: Run unit tests
-      run: flutter test
+      run: |
+        echo "Running unit tests..."
+        flutter test
+        echo "Unit tests completed."
