@@ -23,6 +23,7 @@ jobs:
 
     - name: Install dependencies
       run: flutter pub get
+      working-directory: ./helloworld
 
     - name: Build APK
       shell: bash
@@ -30,9 +31,11 @@ jobs:
         echo "Building APK..."
         flutter build apk --release
         echo "APK build completed."
+      working-directory: ./helloworld
 
     - name: Run unit tests
       run: |
         echo "Running unit tests..."
         flutter test
         echo "Unit tests completed."
+      working-directory: ./helloworld
