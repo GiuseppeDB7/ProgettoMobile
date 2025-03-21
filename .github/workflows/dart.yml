@@ -1,0 +1,44 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+name: Android CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '3.7.0'
+
+    - name: Install dependencies
+      run: flutter pub get
+
+    - name: Build APK
+      shell: bash
+      run: |
+        echo "Building APK..."
+        flutter build apk --release
+        echo "APK build completed."
+
+    - name: Run unit tests
+      run: |
+        echo "Running unit tests..."
+        flutter test
+        echo "Unit tests completed."
+
