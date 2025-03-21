@@ -36,6 +36,7 @@ jobs:
       run: |
         echo "Building APK..."
         export JAVA_HOME=$(dirname $(dirname $(readlink -f $(which java))))
+        cd android
         flutter build apk --release
         echo "APK build completed."
       working-directory: ./helloworld
