@@ -39,7 +39,7 @@ jobs:
         cd android
         flutter build apk --release
         echo "APK build completed."
-      working-directory: ./helloworld
+      working-directory: ./helloworld/android
 
     - name: Run unit tests
       run: |
