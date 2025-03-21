@@ -22,7 +22,7 @@ jobs:
         flutter-version: '3.7.0'
 
     - name: Change directory
-      run: cd helloworld
+      run: cd .\helloworld\
         
     - name: Install dependencies
       run: flutter pub get
