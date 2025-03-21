@@ -20,7 +20,7 @@ dependencies:
   google_mlkit_text_recognition: ^0.14.0
   image_picker: ^1.0.7
   image: ^4.0.17
-  fl_chart: ^0.62.0  # Specificando una versione stabile precedente
+  fl_chart: ^0.55.0  # Modifichiamo a una versione più compatibile
   intl: ^0.20.2
 
 dev_dependencies:

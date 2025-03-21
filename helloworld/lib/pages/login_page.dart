@@ -76,6 +76,7 @@ class _LoginPageState extends State<LoginPage> {
 
                   // Campo email
                   TextField(
+                    key: const Key("email-field"),
                     controller: _emailController,
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
@@ -97,6 +98,7 @@ class _LoginPageState extends State<LoginPage> {
 
                   // Campo password
                   TextField(
+                    key: const Key("password-field"),
                     controller: _passwordController,
                     obscureText: !_passwordVisible,
                     decoration: InputDecoration(
