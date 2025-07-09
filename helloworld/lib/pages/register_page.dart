@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:helloworld/pages/frame_page.dart';
+import 'package:snapbasket/pages/frame_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -31,24 +31,38 @@ class _RegisterPageState extends State<RegisterPage> {
       throw "Le password non coincidono";
     }
 
-    // Crea l'utente con email e password
-    UserCredential userCredential =
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
-      email: _emailController.text.trim(),
-      password: _passwordController.text.trim(),
-    );
+    // Imposta la lingua di Firebase
+    try {
+      FirebaseAuth.instance.setLanguageCode('it');
+      print("Lingua impostata correttamente su 'it'");
+    } catch (e) {
+      print("Errore durante l'impostazione della lingua: $e");
+    }
 
-    // Dopo aver creato l'utente, salva i dati aggiuntivi in Firestore
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(userCredential.user!.uid)
-        .set({
-      'firstName': _nameController.text.trim(),
-      'lastName': _surnameController.text.trim(),
-      'age': int.parse(_ageController.text.trim()),
-      'email': _emailController.text.trim(),
-      'createdAt': Timestamp.now(),
-    });
+    // Crea l'utente con email e password
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+            email: _emailController.text.trim(),
+            password: _passwordController.text.trim(),
+          );
+      print("Utente creato con successo: ${userCredential.user?.uid}");
+
+      // Dopo aver creato l'utente, salva i dati aggiuntivi in Firestore
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userCredential.user!.uid)
+          .set({
+            'firstName': _nameController.text.trim(),
+            'lastName': _surnameController.text.trim(),
+            'age': int.parse(_ageController.text.trim()),
+            'email': _emailController.text.trim(),
+            'createdAt': Timestamp.now(),
+          });
+      print("Dati utente salvati correttamente in Firestore");
+    } catch (e) {
+      print("Errore durante la creazione dell'utente: $e");
+    }
   }
 
   @override
@@ -77,10 +91,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   // Titolo
                   const Text(
                     'Create Account',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 32,
-                    ),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
                   ),
 
                   const SizedBox(height: 30),
@@ -121,8 +132,10 @@ class _RegisterPageState extends State<RegisterPage> {
                       hintText: 'Last Name',
                       fillColor: Colors.grey.shade100,
                       filled: true,
-                      prefixIcon:
-                          Icon(Icons.person_outline, color: Colors.grey[600]),
+                      prefixIcon: Icon(
+                        Icons.person_outline,
+                        color: Colors.grey[600],
+                      ),
                     ),
                   ),
 
@@ -145,8 +158,10 @@ class _RegisterPageState extends State<RegisterPage> {
                       hintText: 'Age',
                       fillColor: Colors.grey.shade100,
                       filled: true,
-                      prefixIcon:
-                          Icon(Icons.calendar_today, color: Colors.grey[600]),
+                      prefixIcon: Icon(
+                        Icons.calendar_today,
+                        color: Colors.grey[600],
+                      ),
                     ),
                   ),
 
@@ -224,8 +239,10 @@ class _RegisterPageState extends State<RegisterPage> {
                       hintText: 'Confirm Password',
                       fillColor: Colors.grey.shade100,
                       filled: true,
-                      prefixIcon:
-                          Icon(Icons.lock_outline, color: Colors.grey[600]),
+                      prefixIcon: Icon(
+                        Icons.lock_outline,
+                        color: Colors.grey[600],
+                      ),
                       suffixIcon: IconButton(
                         icon: Icon(
                           _confirmPasswordVisible
@@ -253,7 +270,8 @@ class _RegisterPageState extends State<RegisterPage> {
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const FramePage()),
+                              builder: (context) => const FramePage(),
+                            ),
                           );
                         }
                       } catch (e) {
@@ -290,10 +308,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   Row(
                     children: [
                       Expanded(
-                        child: Divider(
-                          thickness: 0.5,
-                          color: Colors.grey[400],
-                        ),
+                        child: Divider(thickness: 0.5, color: Colors.grey[400]),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10.0),
@@ -303,10 +318,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                       ),
                       Expanded(
-                        child: Divider(
-                          thickness: 0.5,
-                          color: Colors.grey[400],
-                        ),
+                        child: Divider(thickness: 0.5, color: Colors.grey[400]),
                       ),
                     ],
                   ),

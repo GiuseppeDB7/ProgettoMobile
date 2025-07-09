@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:helloworld/services/firestore.dart';
+import 'package:snapbasket/services/firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class ListPage extends StatelessWidget {
@@ -142,7 +142,8 @@ class ListPage extends StatelessWidget {
 
                       return Container(
                         margin: const EdgeInsets.only(
-                            bottom: 10), // Ridotto da 15 a 10
+                          bottom: 10,
+                        ), // Ridotto da 15 a 10
                         decoration: BoxDecoration(
                           gradient: const LinearGradient(
                             colors: [Color(0xFF000000), Color(0xFF434343)],
@@ -161,8 +162,9 @@ class ListPage extends StatelessWidget {
                         ),
                         child: ListTile(
                           contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 20,
-                              vertical: 10), // Modificato il padding verticale
+                            horizontal: 20,
+                            vertical: 10,
+                          ), // Modificato il padding verticale
                           title: Text(
                             data['name'] ?? 'No name',
                             style: const TextStyle(
@@ -197,22 +199,28 @@ class ListPage extends StatelessWidget {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               IconButton(
-                                icon: const Icon(Icons.edit,
-                                    color: Colors.white70),
-                                onPressed: () => _showEditDialog(
-                                  context,
-                                  docID,
-                                  data['description'] ?? '',
+                                icon: const Icon(
+                                  Icons.edit,
+                                  color: Colors.white70,
                                 ),
+                                onPressed:
+                                    () => _showEditDialog(
+                                      context,
+                                      docID,
+                                      data['description'] ?? '',
+                                    ),
                               ),
                               IconButton(
-                                icon: const Icon(Icons.delete,
-                                    color: Colors.white70),
-                                onPressed: () => _showDeleteDialog(
-                                  context,
-                                  docID,
-                                  data['name'] ?? 'questa lista',
+                                icon: const Icon(
+                                  Icons.delete,
+                                  color: Colors.white70,
                                 ),
+                                onPressed:
+                                    () => _showDeleteDialog(
+                                      context,
+                                      docID,
+                                      data['name'] ?? 'questa lista',
+                                    ),
                               ),
                             ],
                           ),
@@ -234,59 +242,68 @@ class ListPage extends StatelessWidget {
 
   // Dialog per la modifica
   void _showEditDialog(
-      BuildContext context, String docID, String currentDescription) {
+    BuildContext context,
+    String docID,
+    String currentDescription,
+  ) {
     final editController = TextEditingController(text: currentDescription);
 
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Edit Description'), // Modificato
-        content: TextField(
-          controller: editController,
-          decoration: const InputDecoration(
-            labelText: 'New Description', // Modificato
-            border: OutlineInputBorder(),
-          ),
-          maxLines: 3,
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'), // Modificato
-          ),
-          TextButton(
-            onPressed: () async {
-              if (editController.text.trim().isNotEmpty) {
-                try {
-                  await FirestoreService()
-                      .updateList(docID, editController.text.trim());
-                  if (context.mounted) {
-                    Navigator.pop(context);
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text(
-                            'Description updated successfully!'), // Modificato
-                        backgroundColor: Colors.green,
-                      ),
-                    );
+      builder:
+          (context) => AlertDialog(
+            title: const Text('Edit Description'), // Modificato
+            content: TextField(
+              controller: editController,
+              decoration: const InputDecoration(
+                labelText: 'New Description', // Modificato
+                border: OutlineInputBorder(),
+              ),
+              maxLines: 3,
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('Cancel'), // Modificato
+              ),
+              TextButton(
+                onPressed: () async {
+                  if (editController.text.trim().isNotEmpty) {
+                    try {
+                      await FirestoreService().updateList(
+                        docID,
+                        editController.text.trim(),
+                      );
+                      if (context.mounted) {
+                        Navigator.pop(context);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                              'Description updated successfully!',
+                            ), // Modificato
+                            backgroundColor: Colors.green,
+                          ),
+                        );
+                      }
+                    } catch (e) {
+                      if (context.mounted) {
+                        Navigator.pop(context);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              'Error: ${e.toString()}',
+                            ), // Modificato
+                            backgroundColor: Colors.red,
+                          ),
+                        );
+                      }
+                    }
                   }
-                } catch (e) {
-                  if (context.mounted) {
-                    Navigator.pop(context);
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('Error: ${e.toString()}'), // Modificato
-                        backgroundColor: Colors.red,
-                      ),
-                    );
-                  }
-                }
-              }
-            },
-            child: const Text('Confirm'), // Modificato
+                },
+                child: const Text('Confirm'), // Modificato
+              ),
+            ],
           ),
-        ],
-      ),
     );
   }
 
@@ -294,47 +311,51 @@ class ListPage extends StatelessWidget {
   void _showDeleteDialog(BuildContext context, String docID, String listName) {
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Confirm Deletion'), // Modificato
-        content: Text(
-            'Are you sure you want to delete the list "$listName"?'), // Modificato
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'), // Modificato
+      builder:
+          (context) => AlertDialog(
+            title: const Text('Confirm Deletion'), // Modificato
+            content: Text(
+              'Are you sure you want to delete the list "$listName"?',
+            ), // Modificato
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('Cancel'), // Modificato
+              ),
+              TextButton(
+                onPressed: () async {
+                  try {
+                    await FirestoreService().deleteList(docID);
+                    if (context.mounted) {
+                      Navigator.pop(context);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text(
+                            'List deleted successfully!',
+                          ), // Modificato
+                          backgroundColor: Colors.green,
+                        ),
+                      );
+                    }
+                  } catch (e) {
+                    if (context.mounted) {
+                      Navigator.pop(context);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Error: ${e.toString()}'), // Modificato
+                          backgroundColor: Colors.red,
+                        ),
+                      );
+                    }
+                  }
+                },
+                child: const Text(
+                  'Delete', // Modificato
+                  style: TextStyle(color: Colors.red),
+                ),
+              ),
+            ],
           ),
-          TextButton(
-            onPressed: () async {
-              try {
-                await FirestoreService().deleteList(docID);
-                if (context.mounted) {
-                  Navigator.pop(context);
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('List deleted successfully!'), // Modificato
-                      backgroundColor: Colors.green,
-                    ),
-                  );
-                }
-              } catch (e) {
-                if (context.mounted) {
-                  Navigator.pop(context);
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text('Error: ${e.toString()}'), // Modificato
-                      backgroundColor: Colors.red,
-                    ),
-                  );
-                }
-              }
-            },
-            child: const Text(
-              'Delete', // Modificato
-              style: TextStyle(color: Colors.red),
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

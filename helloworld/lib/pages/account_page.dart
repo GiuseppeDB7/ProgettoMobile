@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:helloworld/pages/frame_page.dart';
+import 'package:snapbasket/pages/frame_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -18,60 +18,63 @@ class AccountPage extends StatelessWidget {
   // Metodo per aggiornare i dati dell'utente
   Future<void> updateUserField(String field, dynamic value) async {
     final user = FirebaseAuth.instance.currentUser;
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(user!.uid)
-        .update({field: value});
+    await FirebaseFirestore.instance.collection('users').doc(user!.uid).update({
+      field: value,
+    });
   }
 
   // Metodo per mostrare il dialog di modifica
   void showEditDialog(BuildContext context, String field, String currentValue) {
-    final TextEditingController controller =
-        TextEditingController(text: currentValue);
+    final TextEditingController controller = TextEditingController(
+      text: currentValue,
+    );
 
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: Text('Edit $field'),
-        content: TextField(
-          controller: controller,
-          decoration: InputDecoration(hintText: 'Enter new $field'),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
-          ),
-          TextButton(
-            onPressed: () async {
-              try {
-                // Gestione speciale per l'età (conversione in int)
-                final value = field == 'age'
-                    ? int.parse(controller.text)
-                    : controller.text;
+      builder:
+          (context) => AlertDialog(
+            title: Text('Edit $field'),
+            content: TextField(
+              controller: controller,
+              decoration: InputDecoration(hintText: 'Enter new $field'),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('Cancel'),
+              ),
+              TextButton(
+                onPressed: () async {
+                  try {
+                    // Gestione speciale per l'età (conversione in int)
+                    final value =
+                        field == 'age'
+                            ? int.parse(controller.text)
+                            : controller.text;
 
-                await updateUserField(field, value);
-                if (context.mounted) {
-                  Navigator.pop(context);
-                  // Aggiorna la pagina
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const AccountPage()),
-                  );
-                }
-              } catch (e) {
-                if (context.mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Error: $e')),
-                  );
-                }
-              }
-            },
-            child: const Text('Save'),
+                    await updateUserField(field, value);
+                    if (context.mounted) {
+                      Navigator.pop(context);
+                      // Aggiorna la pagina
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const AccountPage(),
+                        ),
+                      );
+                    }
+                  } catch (e) {
+                    if (context.mounted) {
+                      ScaffoldMessenger.of(
+                        context,
+                      ).showSnackBar(SnackBar(content: Text('Error: $e')));
+                    }
+                  }
+                },
+                child: const Text('Save'),
+              ),
+            ],
           ),
-        ],
-      ),
     );
   }
 
@@ -83,10 +86,7 @@ class AccountPage extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back,
-            color: Colors.black,
-          ),
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {
             Navigator.pushReplacement(
               context,
@@ -96,10 +96,7 @@ class AccountPage extends StatelessWidget {
         ),
         title: const Text(
           "Account",
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 24,
-          ),
+          style: TextStyle(color: Colors.black, fontSize: 24),
         ),
       ),
       body: FutureBuilder<DocumentSnapshot>(
@@ -167,24 +164,36 @@ class AccountPage extends StatelessWidget {
                       title: const Text("Age"),
                       subtitle: Text("${userData['age']} years"),
                       trailing: const Icon(Icons.edit),
-                      onTap: () => showEditDialog(
-                          context, 'age', userData['age'].toString()),
+                      onTap:
+                          () => showEditDialog(
+                            context,
+                            'age',
+                            userData['age'].toString(),
+                          ),
                     ),
                     ListTile(
                       leading: const Icon(Icons.phone),
                       title: const Text("Phone"),
                       subtitle: Text(userData['phone'] ?? "+39 XXX XXX XXXX"),
                       trailing: const Icon(Icons.edit),
-                      onTap: () => showEditDialog(
-                          context, 'phone', userData['phone'] ?? ""),
+                      onTap:
+                          () => showEditDialog(
+                            context,
+                            'phone',
+                            userData['phone'] ?? "",
+                          ),
                     ),
                     ListTile(
                       leading: const Icon(Icons.location_on),
                       title: const Text("Address"),
                       subtitle: Text(userData['address'] ?? "Via Example, 123"),
                       trailing: const Icon(Icons.edit),
-                      onTap: () => showEditDialog(
-                          context, 'address', userData['address'] ?? ""),
+                      onTap:
+                          () => showEditDialog(
+                            context,
+                            'address',
+                            userData['address'] ?? "",
+                          ),
                     ),
 
                     const SizedBox(height: 30),
@@ -195,8 +204,12 @@ class AccountPage extends StatelessWidget {
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.all(15),
-                          backgroundColor:
-                              const Color.fromARGB(255, 206, 19, 6),
+                          backgroundColor: const Color.fromARGB(
+                            255,
+                            206,
+                            19,
+                            6,
+                          ),
                         ),
                         onPressed: () {
                           // Da implementare

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:helloworld/pages/frame_page.dart';
+import 'package:snapbasket/pages/frame_page.dart';
 
 class InfoPage extends StatelessWidget {
   const InfoPage({super.key});
@@ -12,10 +12,7 @@ class InfoPage extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back,
-            color: Colors.black,
-          ),
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {
             Navigator.pushReplacement(
               context,
@@ -25,10 +22,7 @@ class InfoPage extends StatelessWidget {
         ),
         title: const Text(
           "About",
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 24,
-          ),
+          style: TextStyle(color: Colors.black, fontSize: 24),
         ),
       ),
       body: Padding(
@@ -40,10 +34,7 @@ class InfoPage extends StatelessWidget {
             const SizedBox(height: 15),
             const Text(
               "Developers",
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 15),
             const ListTile(
@@ -62,10 +53,7 @@ class InfoPage extends StatelessWidget {
             const SizedBox(height: 15),
             const Text(
               "Contacs",
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 15),
             ListTile(

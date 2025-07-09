@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:helloworld/pages/budget_page.dart';
-import 'package:helloworld/pages/login_page.dart';
-import 'package:helloworld/pages/account_page.dart';
-import 'package:helloworld/components/bottom_nav_bar.dart';
-import 'package:helloworld/pages/list_page.dart';
-import 'package:helloworld/pages/home_page.dart';
-import 'package:helloworld/pages/info_page.dart';
-import 'package:helloworld/pages/scanner_page.dart';
-import 'package:helloworld/pages/settings_page.dart';
-import 'package:helloworld/pages/receipts_page.dart';
+import 'package:snapbasket/pages/budget_page.dart';
+import 'package:snapbasket/pages/login_page.dart';
+import 'package:snapbasket/pages/account_page.dart';
+import 'package:snapbasket/components/bottom_nav_bar.dart';
+import 'package:snapbasket/pages/list_page.dart';
+import 'package:snapbasket/pages/home_page.dart';
+import 'package:snapbasket/pages/info_page.dart';
+import 'package:snapbasket/pages/scanner_page.dart';
+import 'package:snapbasket/pages/settings_page.dart';
+import 'package:snapbasket/pages/receipts_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class FramePage extends StatefulWidget {
@@ -55,10 +55,7 @@ class _FramePageState extends State<FramePage> {
             return IconButton(
               icon: const Padding(
                 padding: EdgeInsets.only(left: 12.0),
-                child: Icon(
-                  Icons.menu,
-                  color: Colors.black,
-                ),
+                child: Icon(Icons.menu, color: Colors.black),
               ),
               onPressed: () {
                 Scaffold.of(context).openDrawer();
@@ -96,9 +93,7 @@ class _FramePageState extends State<FramePage> {
             children: [
               Column(
                 children: [
-                  DrawerHeader(
-                    child: Image.asset('lib/assets/logo.png'),
-                  ),
+                  DrawerHeader(child: Image.asset('lib/assets/logo.png')),
                   const Text(
                     "SnapBasket",
                     style: TextStyle(
@@ -113,13 +108,16 @@ class _FramePageState extends State<FramePage> {
                     padding: const EdgeInsets.only(left: 25.0),
                     child: ListTile(
                       leading: const Icon(Icons.person, color: Colors.white),
-                      title: const Text('Account',
-                          style: TextStyle(color: Colors.white)),
+                      title: const Text(
+                        'Account',
+                        style: TextStyle(color: Colors.white),
+                      ),
                       onTap: () {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const AccountPage()),
+                            builder: (context) => const AccountPage(),
+                          ),
                         );
                       },
                     ),
@@ -128,13 +126,16 @@ class _FramePageState extends State<FramePage> {
                     padding: const EdgeInsets.only(left: 25.0),
                     child: ListTile(
                       leading: const Icon(Icons.settings, color: Colors.white),
-                      title: const Text('Settings',
-                          style: TextStyle(color: Colors.white)),
+                      title: const Text(
+                        'Settings',
+                        style: TextStyle(color: Colors.white),
+                      ),
                       onTap: () {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const SettingsPage()),
+                            builder: (context) => const SettingsPage(),
+                          ),
                         );
                       },
                     ),
@@ -143,13 +144,16 @@ class _FramePageState extends State<FramePage> {
                     padding: const EdgeInsets.only(left: 25.0),
                     child: ListTile(
                       leading: const Icon(Icons.info, color: Colors.white),
-                      title: const Text('About',
-                          style: TextStyle(color: Colors.white)),
+                      title: const Text(
+                        'About',
+                        style: TextStyle(color: Colors.white),
+                      ),
                       onTap: () {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const InfoPage()),
+                            builder: (context) => const InfoPage(),
+                          ),
                         );
                       },
                     ),
@@ -162,8 +166,10 @@ class _FramePageState extends State<FramePage> {
                     padding: const EdgeInsets.only(left: 25.0, bottom: 25),
                     child: ListTile(
                       leading: const Icon(Icons.logout, color: Colors.white),
-                      title: const Text('Logout',
-                          style: TextStyle(color: Colors.white)),
+                      title: const Text(
+                        'Logout',
+                        style: TextStyle(color: Colors.white),
+                      ),
                       onTap: () {
                         showDialog(
                           context: context,
@@ -171,7 +177,8 @@ class _FramePageState extends State<FramePage> {
                             return AlertDialog(
                               title: const Text('Logout confirm'),
                               content: const Text(
-                                  'Are you sure you want to logout?'),
+                                'Are you sure you want to logout?',
+                              ),
                               actions: [
                                 TextButton(
                                   onPressed: () {
@@ -185,21 +192,25 @@ class _FramePageState extends State<FramePage> {
                                       await FirebaseAuth.instance.signOut();
                                       if (mounted) {
                                         Navigator.pop(
-                                            context); // Chiude il dialog
+                                          context,
+                                        ); // Chiude il dialog
                                         Navigator.pushReplacement(
                                           context,
                                           MaterialPageRoute(
-                                            builder: (context) =>
-                                                const LoginPage(), // Corretto l'indentazione
+                                            builder:
+                                                (context) =>
+                                                    const LoginPage(), // Corretto l'indentazione
                                           ),
                                         );
                                       }
                                     } catch (e) {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
+                                      ScaffoldMessenger.of(
+                                        context,
+                                      ).showSnackBar(
                                         const SnackBar(
-                                          content:
-                                              Text('Errore durante il logout'),
+                                          content: Text(
+                                            'Errore durante il logout',
+                                          ),
                                           backgroundColor: Colors.red,
                                         ),
                                       );

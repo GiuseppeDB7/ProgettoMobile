@@ -17,17 +17,29 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        return ios;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for ios - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
-        return windows;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for windows - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -40,49 +52,11 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyB9VTwRyWayiBSJzlUck5Us7yfuqSndnW0',
-    appId: '1:1097254053977:web:807f4b8584563b2ec5a948',
-    messagingSenderId: '1097254053977',
-    projectId: 'snapbasket-66125',
-    authDomain: 'snapbasket-66125.firebaseapp.com',
-    storageBucket: 'snapbasket-66125.firebasestorage.app',
-    measurementId: 'G-RL83X8WG89',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyAGuNou3OD3VsSthd4sW7fUv0yWRrq3cxs',
-    appId: '1:1097254053977:android:10d4c180851129c7c5a948',
+    appId: '1:1097254053977:android:0700fef455f9cbc5c5a948',
     messagingSenderId: '1097254053977',
     projectId: 'snapbasket-66125',
     storageBucket: 'snapbasket-66125.firebasestorage.app',
-  );
-
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBJVk-G9O13u5W-leg4WficRElWjDeZNNE',
-    appId: '1:1097254053977:ios:85da62dbaf7dc899c5a948',
-    messagingSenderId: '1097254053977',
-    projectId: 'snapbasket-66125',
-    storageBucket: 'snapbasket-66125.firebasestorage.app',
-    iosBundleId: 'com.example.helloworld',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyBJVk-G9O13u5W-leg4WficRElWjDeZNNE',
-    appId: '1:1097254053977:ios:85da62dbaf7dc899c5a948',
-    messagingSenderId: '1097254053977',
-    projectId: 'snapbasket-66125',
-    storageBucket: 'snapbasket-66125.firebasestorage.app',
-    iosBundleId: 'com.example.helloworld',
-  );
-
-  static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyB9VTwRyWayiBSJzlUck5Us7yfuqSndnW0',
-    appId: '1:1097254053977:web:efe6ee2174cc2ec1c5a948',
-    messagingSenderId: '1097254053977',
-    projectId: 'snapbasket-66125',
-    authDomain: 'snapbasket-66125.firebaseapp.com',
-    storageBucket: 'snapbasket-66125.firebasestorage.app',
-    measurementId: 'G-C2CGLLP8T4',
   );
 }

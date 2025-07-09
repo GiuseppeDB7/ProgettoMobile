@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:helloworld/services/scanner_service.dart';
+import 'package:snapbasket/services/scanner_service.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -84,8 +84,9 @@ class _ScannerPageState extends State<ScannerPage> {
               const SizedBox(height: 16),
               TextField(
                 controller: totalController,
-                keyboardType:
-                    const TextInputType.numberWithOptions(decimal: true),
+                keyboardType: const TextInputType.numberWithOptions(
+                  decimal: true,
+                ),
                 decoration: const InputDecoration(
                   labelText: 'Total',
                   prefixText: '€ ',
@@ -101,8 +102,9 @@ class _ScannerPageState extends State<ScannerPage> {
             ),
             TextButton(
               onPressed: () {
-                final total =
-                    double.tryParse(totalController.text.replaceAll(',', '.'));
+                final total = double.tryParse(
+                  totalController.text.replaceAll(',', '.'),
+                );
                 Navigator.of(context).pop(total);
               },
               child: const Text('Confirm'),
@@ -218,9 +220,9 @@ class _ScannerPageState extends State<ScannerPage> {
         await _processImage(File(pickedFile.path));
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error picking image: $e')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Error picking image: $e')));
     }
   }
 
@@ -239,9 +241,9 @@ class _ScannerPageState extends State<ScannerPage> {
 
       // Pattern migliorato per il prezzo: cerca numeri con decimali alla fine della riga
       // che non fanno parte di una stringa più lunga di numeri
-      final priceMatch =
-          RegExp(r'(?<!\d)(\d{1,3}(?:[.,]\d{3})*[.,]\d{2})(?!\d)$')
-              .firstMatch(line.trim());
+      final priceMatch = RegExp(
+        r'(?<!\d)(\d{1,3}(?:[.,]\d{3})*[.,]\d{2})(?!\d)$',
+      ).firstMatch(line.trim());
 
       if (priceMatch != null) {
         final priceStr = priceMatch
@@ -260,10 +262,7 @@ class _ScannerPageState extends State<ScannerPage> {
               .replaceAll(RegExp(r'[^\w\s€.,]'), '');
 
           if (description.isNotEmpty) {
-            items.add({
-              'description': description,
-              'price': price,
-            });
+            items.add({'description': description, 'price': price});
           }
         }
       }
@@ -272,18 +271,22 @@ class _ScannerPageState extends State<ScannerPage> {
       if (line.toLowerCase().contains('total') ||
           line.toLowerCase().contains('tot.') ||
           line.toLowerCase().contains('importo')) {
-        final totalMatch =
-            RegExp(r'(\d{1,3}(?:[.,]\d{3})*[.,]\d{2})').firstMatch(line);
+        final totalMatch = RegExp(
+          r'(\d{1,3}(?:[.,]\d{3})*[.,]\d{2})',
+        ).firstMatch(line);
         if (totalMatch != null) {
-          final totalStr =
-              totalMatch.group(1)!.replaceAll('.', '').replaceAll(',', '.');
+          final totalStr = totalMatch
+              .group(1)!
+              .replaceAll('.', '')
+              .replaceAll(',', '.');
           total = double.tryParse(totalStr);
         }
       }
 
       // Cerca la data (pattern invariato)
-      final dateMatch =
-          RegExp(r'(\d{2})[./-](\d{2})[./-](\d{4})').firstMatch(line);
+      final dateMatch = RegExp(
+        r'(\d{2})[./-](\d{2})[./-](\d{4})',
+      ).firstMatch(line);
       if (dateMatch != null) {
         try {
           date = DateTime(
@@ -297,11 +300,7 @@ class _ScannerPageState extends State<ScannerPage> {
       }
     }
 
-    return {
-      'total': total,
-      'date': date,
-      'items': items,
-    };
+    return {'total': total, 'date': date, 'items': items};
   }
 
   @override
@@ -310,8 +309,9 @@ class _ScannerPageState extends State<ScannerPage> {
       backgroundColor: Colors.grey[300],
       extendBodyBehindAppBar: true, // Aggiunta questa proprietà
       appBar: PreferredSize(
-        preferredSize:
-            const Size.fromHeight(0), // Riduce l'altezza dell'AppBar a 0
+        preferredSize: const Size.fromHeight(
+          0,
+        ), // Riduce l'altezza dell'AppBar a 0
         child: AppBar(
           backgroundColor: Colors.transparent, // Imposta a transparent
           elevation: 0,
@@ -338,8 +338,10 @@ class _ScannerPageState extends State<ScannerPage> {
                   Container(
                     padding: const EdgeInsets.all(16),
                     margin: const EdgeInsets.only(
-                        bottom: 20), // Aggiungi spazio sotto
-                    width: MediaQuery.of(context).size.width *
+                      bottom: 20,
+                    ), // Aggiungi spazio sotto
+                    width:
+                        MediaQuery.of(context).size.width *
                         0.5, // Stessa larghezza della box immagine
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -390,11 +392,14 @@ class _ScannerPageState extends State<ScannerPage> {
                             leading: const Icon(Icons.euro),
                             title: const Text('Total'),
                             subtitle: Text(
-                                '€ ${_lastScannedTotal!.toStringAsFixed(2)}'),
+                              '€ ${_lastScannedTotal!.toStringAsFixed(2)}',
+                            ),
                           ),
                         ListTile(
-                          leading: const Icon(Icons.check_circle,
-                              color: Colors.green),
+                          leading: const Icon(
+                            Icons.check_circle,
+                            color: Colors.green,
+                          ),
                           title: const Text('Stato'),
                           subtitle: const Text('Saved successfully'),
                         ),
@@ -405,7 +410,8 @@ class _ScannerPageState extends State<ScannerPage> {
                 // Area immagine (spostata dopo)
                 Container(
                   height: 350,
-                  width: MediaQuery.of(context).size.width *
+                  width:
+                      MediaQuery.of(context).size.width *
                       0.5, // Ridotto da 0.7 a 0.5
                   alignment:
                       Alignment.center, // Aggiunto per centrare il contenuto
@@ -423,48 +429,49 @@ class _ScannerPageState extends State<ScannerPage> {
                       ),
                     ],
                   ),
-                  child: _image != null
-                      ? ClipRRect(
-                          borderRadius: BorderRadius.circular(12),
-                          child: Image.file(
-                            _image!,
-                            fit: BoxFit.contain, // Cambiato da cover a contain
+                  child:
+                      _image != null
+                          ? ClipRRect(
+                            borderRadius: BorderRadius.circular(12),
+                            child: Image.file(
+                              _image!,
+                              fit:
+                                  BoxFit.contain, // Cambiato da cover a contain
+                            ),
+                          )
+                          : Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.android_rounded,
+                                size: 64,
+                                color: Colors.grey[400],
+                              ),
+                              const SizedBox(height: 16),
+                              const Text(
+                                'Hey! I\'m ready to scan\nyour receipt!',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Colors.black87, // Contrasto aumentato
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+                              const Text(
+                                'Use camera or choose from gallery',
+                                style: TextStyle(
+                                  color: Colors.black54, // Contrasto aumentato
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ],
                           ),
-                        )
-                      : Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.android_rounded,
-                              size: 64,
-                              color: Colors.grey[400],
-                            ),
-                            const SizedBox(height: 16),
-                            const Text(
-                              'Hey! I\'m ready to scan\nyour receipt!',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Colors.black87, // Contrasto aumentato
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            const SizedBox(height: 8),
-                            const Text(
-                              'Use camera or choose from gallery',
-                              style: TextStyle(
-                                color: Colors.black54, // Contrasto aumentato
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ],
-                        ),
                 ),
 
                 // Riduci ulteriormente lo spazio dopo il container
                 const SizedBox(height: 5), // Ridotto da 10 a 5
-
                 // Pulsanti per la selezione dell'immagine e reset
                 Column(
                   children: [

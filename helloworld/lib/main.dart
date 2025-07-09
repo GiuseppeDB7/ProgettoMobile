@@ -1,13 +1,23 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:helloworld/firebase_options.dart';
-import 'package:helloworld/models/home.dart';
-import 'package:helloworld/pages/main_page.dart';
+import 'package:snapbasket/firebase_options.dart';
+import 'package:snapbasket/models/home.dart';
+import 'package:snapbasket/pages/main_page.dart';
 import 'package:provider/provider.dart'; // Aggiungi questo import
+import 'package:firebase_auth/firebase_auth.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  // Imposta la lingua di Firebase con un fallback
+  try {
+    FirebaseAuth.instance.setLanguageCode('it');
+  } catch (e) {
+    print('Errore durante l\'impostazione della lingua: $e');
+    FirebaseAuth.instance.setLanguageCode('en'); // Fallback a inglese
+  }
+
   runApp(const MyApp());
 }
 
@@ -17,9 +27,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (context) => Cart()),
-      ],
+      providers: [ChangeNotifierProvider(create: (context) => Cart())],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
         home: MainPage(),

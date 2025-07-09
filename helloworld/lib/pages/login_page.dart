@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:helloworld/pages/frame_page.dart';
+import 'package:snapbasket/pages/frame_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:helloworld/pages/register_page.dart';
+import 'package:snapbasket/pages/register_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -45,19 +45,13 @@ class _LoginPageState extends State<LoginPage> {
                   // Logo
                   Padding(
                     padding: const EdgeInsets.all(10.0),
-                    child: Image.asset(
-                      'lib/assets/logo.png',
-                      height: 170,
-                    ),
+                    child: Image.asset('lib/assets/logo.png', height: 170),
                   ),
 
                   // Titolo principale
                   const Text(
                     'SnapBasket',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 40,
-                    ),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 40),
                   ),
 
                   const SizedBox(height: 10),
@@ -65,10 +59,7 @@ class _LoginPageState extends State<LoginPage> {
                   // Sottotitolo
                   Text(
                     'Organize your shopping effortlessly',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.grey[700],
-                    ),
+                    style: TextStyle(fontSize: 16, color: Colors.grey[700]),
                     textAlign: TextAlign.center,
                   ),
 
@@ -137,10 +128,7 @@ class _LoginPageState extends State<LoginPage> {
                     alignment: Alignment.centerRight,
                     child: Text(
                       'Forgot Password?',
-                      style: TextStyle(
-                        color: Colors.grey[600],
-                        fontSize: 14,
-                      ),
+                      style: TextStyle(color: Colors.grey[600], fontSize: 14),
                     ),
                   ),
 
@@ -155,7 +143,8 @@ class _LoginPageState extends State<LoginPage> {
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const FramePage()),
+                              builder: (context) => const FramePage(),
+                            ),
                           );
                         }
                       } catch (e) {
@@ -193,10 +182,7 @@ class _LoginPageState extends State<LoginPage> {
                   Row(
                     children: [
                       Expanded(
-                        child: Divider(
-                          thickness: 0.5,
-                          color: Colors.grey[400],
-                        ),
+                        child: Divider(thickness: 0.5, color: Colors.grey[400]),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10.0),
@@ -206,10 +192,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                       Expanded(
-                        child: Divider(
-                          thickness: 0.5,
-                          color: Colors.grey[400],
-                        ),
+                        child: Divider(thickness: 0.5, color: Colors.grey[400]),
                       ),
                     ],
                   ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:helloworld/pages/frame_page.dart';
-import 'package:helloworld/pages/account_page.dart';
+import 'package:snapbasket/pages/frame_page.dart';
+import 'package:snapbasket/pages/account_page.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -13,10 +13,7 @@ class SettingsPage extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back,
-            color: Colors.black,
-          ),
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {
             Navigator.pushReplacement(
               context,
@@ -26,10 +23,7 @@ class SettingsPage extends StatelessWidget {
         ),
         title: const Text(
           "Settings",
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 24,
-          ),
+          style: TextStyle(color: Colors.black, fontSize: 24),
         ),
       ),
       body: Padding(
@@ -41,10 +35,7 @@ class SettingsPage extends StatelessWidget {
             // Sezione Account
             const Text(
               "Account",
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 15),
             ListTile(
@@ -73,10 +64,7 @@ class SettingsPage extends StatelessWidget {
             // Sezione App
             const Text(
               "App",
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 15),
             ListTile(
@@ -102,10 +90,7 @@ class SettingsPage extends StatelessWidget {
             // Sezione Informazioni
             const Text(
               "Info",
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 15),
             const ListTile(

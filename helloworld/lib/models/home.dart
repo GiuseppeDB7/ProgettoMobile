@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:helloworld/models/item.dart';
+import 'package:snapbasket/models/item.dart';
 
 class Cart extends ChangeNotifier {
   List<Item> itemShop = [
