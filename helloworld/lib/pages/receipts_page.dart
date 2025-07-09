@@ -33,7 +33,7 @@ class ReceiptsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[300],
-      extendBodyBehindAppBar: true, // Aggiunto per evitare la fascia scura
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -46,7 +46,6 @@ class ReceiptsPage extends StatelessWidget {
             return const Center(child: Text('Please log in to view receipts'));
           }
 
-          // Modifica lo StreamBuilder interno
           return StreamBuilder<QuerySnapshot>(
             stream: FirebaseFirestore.instance
                 .collection('receipts')
@@ -64,7 +63,7 @@ class ReceiptsPage extends StatelessWidget {
               }
 
               final docs = snapshot.data?.docs ?? [];
-              print('Number of docs: ${docs.length}'); // Debug print
+              print('Number of docs: ${docs.length}');
 
               if (docs.isEmpty) {
                 return Center(
@@ -94,15 +93,14 @@ class ReceiptsPage extends StatelessWidget {
                 );
               }
 
-              // Organizziamo gli scontrini per mese
               final groupedReceipts = <String, List<QueryDocumentSnapshot>>{};
               for (var doc in docs) {
                 try {
                   final data = doc.data() as Map<String, dynamic>;
-                  print('Document data: $data'); // Debug print
+                  print('Document data: $data');
                   final receiptDate = (data['date'] as Timestamp?)?.toDate() ??
                       (data['createdAt'] as Timestamp)
-                          .toDate(); // fallback a createdAt
+                          .toDate();
                   final monthKey = DateFormat('MMMM yyyy').format(receiptDate);
 
                   if (!groupedReceipts.containsKey(monthKey)) {
@@ -115,7 +113,6 @@ class ReceiptsPage extends StatelessWidget {
                 }
               }
 
-              // Dopo aver popolato groupedReceipts, ordina i documenti per data
               for (var monthKey in groupedReceipts.keys) {
                 groupedReceipts[monthKey]!.sort((a, b) {
                   final aData = a.data() as Map<String, dynamic>;
@@ -125,19 +122,17 @@ class ReceiptsPage extends StatelessWidget {
                   final bDate = (bData['date'] as Timestamp?)?.toDate() ??
                       (bData['createdAt'] as Timestamp).toDate();
                   return bDate.compareTo(
-                      aDate); // Ordine decrescente (più recente prima)
+                      aDate);
                 });
               }
 
-              // Ordina anche le chiavi dei mesi per avere i mesi più recenti in alto
               final sortedEntries = groupedReceipts.entries.toList()
                 ..sort((a, b) {
                   final aDate = DateFormat('MMMM yyyy').parse(a.key);
                   final bDate = DateFormat('MMMM yyyy').parse(b.key);
-                  return bDate.compareTo(aDate); // Ordine decrescente
+                  return bDate.compareTo(aDate);
                 });
 
-              // Verifichiamo se abbiamo dati da mostrare
               if (groupedReceipts.isEmpty) {
                 return Center(
                   child: Container(
@@ -167,14 +162,12 @@ class ReceiptsPage extends StatelessWidget {
               }
 
               return SingleChildScrollView(
-                padding: EdgeInsets
-                    .zero, // Rimuovo il padding del SingleChildScrollView
+                padding: EdgeInsets.zero,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: sortedEntries.map((entry) {
-                      // Usa sortedEntries invece di groupedReceipts.entries
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -187,7 +180,7 @@ class ReceiptsPage extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(
-                              height: 16), // Spazio dopo il titolo del mese
+                              height: 16),
                           ...entry.value.map((doc) {
                             try {
                               final data = doc.data() as Map<String, dynamic>;
@@ -199,10 +192,9 @@ class ReceiptsPage extends StatelessWidget {
                               final fullText =
                                   data['fullText'] as String? ?? 'Nessun testo';
 
-                              // Modifica il Container della receipt
                               return Container(
                                 margin: const EdgeInsets.only(
-                                    bottom: 8), // Ridotto da 10 a 8
+                                    bottom: 8),
                                 decoration: BoxDecoration(
                                   gradient: const LinearGradient(
                                     colors: [
@@ -226,7 +218,7 @@ class ReceiptsPage extends StatelessWidget {
                                   contentPadding: const EdgeInsets.symmetric(
                                       horizontal: 16,
                                       vertical:
-                                          8), // Ridotto il padding verticale
+                                          8),
                                   title: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -255,7 +247,7 @@ class ReceiptsPage extends StatelessWidget {
                                   ),
                                   subtitle: Padding(
                                     padding: const EdgeInsets.only(
-                                        top: 4), // Ridotto da 8 a 4
+                                        top: 4),
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
@@ -276,7 +268,7 @@ class ReceiptsPage extends StatelessWidget {
                                           icon: const Icon(
                                             Icons.delete_outline,
                                             color: Colors
-                                                .white, // Cambiato da white70 a white
+                                                .white,
                                             size: 20,
                                           ),
                                           onPressed: () {
@@ -320,7 +312,7 @@ class ReceiptsPage extends StatelessWidget {
                                   ),
                                   leading: Container(
                                     padding: const EdgeInsets.all(
-                                        6), // Ridotto da 8 a 6
+                                        6),
                                     decoration: BoxDecoration(
                                       color: Colors.white.withOpacity(0.2),
                                       borderRadius: BorderRadius.circular(12),
@@ -334,7 +326,7 @@ class ReceiptsPage extends StatelessWidget {
                               );
                             } catch (e) {
                               print('Error rendering receipt: $e');
-                              return Container(); // Return empty container in case of error
+                              return Container();
                             }
                           }).toList(),
                         ],

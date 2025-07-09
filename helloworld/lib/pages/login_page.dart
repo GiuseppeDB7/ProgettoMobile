@@ -11,10 +11,9 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  //text controllers
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  bool _passwordVisible = false; // Aggiungi questa riga
+  bool _passwordVisible = false;
 
   Future signIn() async {
     await FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -42,13 +41,11 @@ class _LoginPageState extends State<LoginPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // Logo
                   Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Image.asset('lib/assets/logo.png', height: 170),
                   ),
 
-                  // Titolo principale
                   const Text(
                     'SnapBasket',
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 40),
@@ -56,7 +53,6 @@ class _LoginPageState extends State<LoginPage> {
 
                   const SizedBox(height: 10),
 
-                  // Sottotitolo
                   Text(
                     'Organize your shopping effortlessly',
                     style: TextStyle(fontSize: 16, color: Colors.grey[700]),
@@ -65,7 +61,6 @@ class _LoginPageState extends State<LoginPage> {
 
                   const SizedBox(height: 30),
 
-                  // Campo email
                   TextField(
                     key: const Key("email-field"),
                     controller: _emailController,
@@ -87,7 +82,6 @@ class _LoginPageState extends State<LoginPage> {
 
                   const SizedBox(height: 20),
 
-                  // Campo password
                   TextField(
                     key: const Key("password-field"),
                     controller: _passwordController,
@@ -123,7 +117,6 @@ class _LoginPageState extends State<LoginPage> {
 
                   const SizedBox(height: 10),
 
-                  // Testo "Forgot Password?"
                   Align(
                     alignment: Alignment.centerRight,
                     child: Text(
@@ -134,7 +127,6 @@ class _LoginPageState extends State<LoginPage> {
 
                   const SizedBox(height: 25),
 
-                  // Pulsante Login
                   GestureDetector(
                     onTap: () async {
                       try {
@@ -148,7 +140,6 @@ class _LoginPageState extends State<LoginPage> {
                           );
                         }
                       } catch (e) {
-                        // Gestione degli errori
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text('Sign In Error'),
@@ -178,7 +169,6 @@ class _LoginPageState extends State<LoginPage> {
 
                   const SizedBox(height: 25),
 
-                  // Testo "Or continue with"
                   Row(
                     children: [
                       Expanded(
@@ -199,7 +189,6 @@ class _LoginPageState extends State<LoginPage> {
 
                   const SizedBox(height: 25),
 
-                  // Testo "Not a member?"
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

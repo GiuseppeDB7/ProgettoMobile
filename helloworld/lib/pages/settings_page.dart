@@ -32,7 +32,6 @@ class SettingsPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 25),
-            // Sezione Account
             const Text(
               "Account",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -53,7 +52,7 @@ class SettingsPage extends StatelessWidget {
               leading: const Icon(Icons.notifications),
               title: const Text("Notifications"),
               trailing: Switch(
-                value: true, // Valore da gestire con stato
+                value: true,
                 onChanged: (bool value) {
                   // Gestire il cambio di stato
                 },
@@ -61,7 +60,6 @@ class SettingsPage extends StatelessWidget {
             ),
 
             const SizedBox(height: 25),
-            // Sezione App
             const Text(
               "App",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -79,7 +77,7 @@ class SettingsPage extends StatelessWidget {
               leading: const Icon(Icons.dark_mode),
               title: const Text("Dark Theme"),
               trailing: Switch(
-                value: false, // Valore da gestire con stato
+                value: false,
                 onChanged: (bool value) {
                   // Gestire il cambio di stato
                 },
@@ -87,7 +85,6 @@ class SettingsPage extends StatelessWidget {
             ),
 
             const SizedBox(height: 25),
-            // Sezione Informazioni
             const Text(
               "Info",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),

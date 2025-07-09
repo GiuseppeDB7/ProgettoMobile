@@ -66,7 +66,6 @@ class _ScannerPageState extends State<ScannerPage> {
     );
   }
 
-  // Aggiungi questo nuovo metodo per il dialog del totale
   Future<double?> _showTotalDialog() async {
     final totalController = TextEditingController();
     return showDialog<double>(
@@ -135,7 +134,6 @@ class _ScannerPageState extends State<ScannerPage> {
       final text = await _scannerService.scanReceipt(image);
       final extractedData = _extractReceiptData(text);
 
-      // Controllo della data
       if (extractedData['date'] == null) {
         final selectedDate = await _showDatePicker();
         if (selectedDate == null) {
@@ -150,7 +148,6 @@ class _ScannerPageState extends State<ScannerPage> {
         extractedData['date'] = selectedDate;
       }
 
-      // Controllo del totale
       if (extractedData['total'] == null) {
         final manualTotal = await _showTotalDialog();
         if (manualTotal == null) {
@@ -165,7 +162,6 @@ class _ScannerPageState extends State<ScannerPage> {
         extractedData['total'] = manualTotal;
       }
 
-      // Salva nel database
       final user = FirebaseAuth.instance.currentUser;
       if (user != null) {
         final receipt = Receipt(
@@ -231,16 +227,12 @@ class _ScannerPageState extends State<ScannerPage> {
     DateTime? date;
     List<Map<String, dynamic>> items = [];
 
-    // Separa le righe e rimuovi le righe vuote
     final lines =
         text.split('\n').where((line) => line.trim().isNotEmpty).toList();
 
     for (String line in lines) {
-      // Ignora righe che contengono numeri di 12 o più cifre (potrebbero essere codici a barre)
       if (RegExp(r'\d{12,}').hasMatch(line)) continue;
 
-      // Pattern migliorato per il prezzo: cerca numeri con decimali alla fine della riga
-      // che non fanno parte di una stringa più lunga di numeri
       final priceMatch = RegExp(
         r'(?<!\d)(\d{1,3}(?:[.,]\d{3})*[.,]\d{2})(?!\d)$',
       ).firstMatch(line.trim());
@@ -248,16 +240,14 @@ class _ScannerPageState extends State<ScannerPage> {
       if (priceMatch != null) {
         final priceStr = priceMatch
             .group(1)!
-            .replaceAll('.', '') // Rimuove i separatori delle migliaia
-            .replaceAll(',', '.'); // Converte la virgola decimale in punto
+            .replaceAll('.', '')
+            .replaceAll(',', '.');
 
         final price = double.tryParse(priceStr);
         if (price != null) {
-          // Estrai la descrizione (tutto prima del prezzo)
           String description = line
               .substring(0, line.length - priceMatch.group(0)!.length)
               .trim()
-              // Rimuovi caratteri speciali e spazi multipli
               .replaceAll(RegExp(r'\s+'), ' ')
               .replaceAll(RegExp(r'[^\w\s€.,]'), '');
 
@@ -267,7 +257,6 @@ class _ScannerPageState extends State<ScannerPage> {
         }
       }
 
-      // Cerca il totale (pattern migliorato)
       if (line.toLowerCase().contains('total') ||
           line.toLowerCase().contains('tot.') ||
           line.toLowerCase().contains('importo')) {
@@ -283,7 +272,6 @@ class _ScannerPageState extends State<ScannerPage> {
         }
       }
 
-      // Cerca la data (pattern invariato)
       final dateMatch = RegExp(
         r'(\d{2})[./-](\d{2})[./-](\d{4})',
       ).firstMatch(line);
@@ -307,13 +295,13 @@ class _ScannerPageState extends State<ScannerPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[300],
-      extendBodyBehindAppBar: true, // Aggiunta questa proprietà
+      extendBodyBehindAppBar: true,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(
           0,
-        ), // Riduce l'altezza dell'AppBar a 0
+        ),
         child: AppBar(
-          backgroundColor: Colors.transparent, // Imposta a transparent
+          backgroundColor: Colors.transparent,
           elevation: 0,
           systemOverlayStyle: SystemUiOverlayStyle(
             statusBarColor: Colors.grey[300],
@@ -322,16 +310,15 @@ class _ScannerPageState extends State<ScannerPage> {
         ),
       ),
       body: Container(
-        color: Colors.grey[300], // Colore di sfondo del container principale
+        color: Colors.grey[300],
         child: SingleChildScrollView(
           physics:
-              const ClampingScrollPhysics(), // Aggiunto per evitare l'effetto overscroll
+              const ClampingScrollPhysics(),
           child: Padding(
             padding: const EdgeInsets.all(20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                // Box riepilogativa (ora per prima)
                 if (_isProcessing)
                   const Center(child: CircularProgressIndicator())
                 else if (_lastScanSuccessful)
@@ -339,10 +326,10 @@ class _ScannerPageState extends State<ScannerPage> {
                     padding: const EdgeInsets.all(16),
                     margin: const EdgeInsets.only(
                       bottom: 20,
-                    ), // Aggiungi spazio sotto
+                    ),
                     width:
                         MediaQuery.of(context).size.width *
-                        0.5, // Stessa larghezza della box immagine
+                        0.5,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(12),
@@ -359,7 +346,6 @@ class _ScannerPageState extends State<ScannerPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Riga con titolo e bottone reset
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -406,15 +392,13 @@ class _ScannerPageState extends State<ScannerPage> {
                       ],
                     ),
                   ),
-
-                // Area immagine (spostata dopo)
                 Container(
                   height: 350,
                   width:
                       MediaQuery.of(context).size.width *
-                      0.5, // Ridotto da 0.7 a 0.5
+                      0.5,
                   alignment:
-                      Alignment.center, // Aggiunto per centrare il contenuto
+                      Alignment.center,
                   margin: const EdgeInsets.only(bottom: 15),
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -436,7 +420,7 @@ class _ScannerPageState extends State<ScannerPage> {
                             child: Image.file(
                               _image!,
                               fit:
-                                  BoxFit.contain, // Cambiato da cover a contain
+                                  BoxFit.contain,
                             ),
                           )
                           : Column(
@@ -452,7 +436,7 @@ class _ScannerPageState extends State<ScannerPage> {
                                 'Hey! I\'m ready to scan\nyour receipt!',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                  color: Colors.black87, // Contrasto aumentato
+                                  color: Colors.black87,
                                   fontSize: 18,
                                   fontWeight: FontWeight.w600,
                                 ),
@@ -461,7 +445,7 @@ class _ScannerPageState extends State<ScannerPage> {
                               const Text(
                                 'Use camera or choose from gallery',
                                 style: TextStyle(
-                                  color: Colors.black54, // Contrasto aumentato
+                                  color: Colors.black54,
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500,
                                 ),
@@ -469,13 +453,9 @@ class _ScannerPageState extends State<ScannerPage> {
                             ],
                           ),
                 ),
-
-                // Riduci ulteriormente lo spazio dopo il container
-                const SizedBox(height: 5), // Ridotto da 10 a 5
-                // Pulsanti per la selezione dell'immagine e reset
+                const SizedBox(height: 5),
                 Column(
                   children: [
-                    // Prima riga con Camera e Gallery
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -499,8 +479,7 @@ class _ScannerPageState extends State<ScannerPage> {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 16), // Spazio tra le righe
-                    // Seconda riga con il bottone Reset
+                    const SizedBox(height: 16),
                     ElevatedButton(
                       onPressed: _resetPage,
                       style: ElevatedButton.styleFrom(

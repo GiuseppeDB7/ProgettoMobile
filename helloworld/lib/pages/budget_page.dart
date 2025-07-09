@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:intl/intl.dart';
-import 'package:intl/date_symbol_data_local.dart'; // Aggiungi questo import
+import 'package:intl/date_symbol_data_local.dart';
 
 class BudgetPage extends StatefulWidget {
   const BudgetPage({super.key});
@@ -18,7 +18,6 @@ class _BudgetPageState extends State<BudgetPage> {
   List<Map<String, dynamic>> spendingHistory = [];
   bool isLoading = true;
 
-  // Formattatore per la valuta
   final currencyFormat = NumberFormat.currency(locale: 'it_IT', symbol: '€');
 
   @override
@@ -33,15 +32,12 @@ class _BudgetPageState extends State<BudgetPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Card Budget Totale
                     _buildBudgetCard(),
                     const SizedBox(height: 25),
 
-                    // Grafico Spese
                     _buildSpendingChart(),
                     const SizedBox(height: 25),
 
-                    // Lista ultime spese
                     _buildRecentSpendingList(),
                   ],
                 ),
@@ -50,9 +46,7 @@ class _BudgetPageState extends State<BudgetPage> {
     );
   }
 
-  // Modifica il metodo _buildBudgetCard per gestire i casi limite
   Widget _buildBudgetCard() {
-    // Gestione caso budget zero
     if (totalBudget <= 0) {
       return Container(
         width: double.infinity,
@@ -96,7 +90,6 @@ class _BudgetPageState extends State<BudgetPage> {
             const SizedBox(height: 10),
             ElevatedButton(
               onPressed: () {
-                // TODO: Implementare la logica per impostare il budget
                 _showSetBudgetDialog();
               },
               style: ElevatedButton.styleFrom(
@@ -110,7 +103,6 @@ class _BudgetPageState extends State<BudgetPage> {
       );
     }
 
-    // Resto del codice esistente con controlli aggiuntivi
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(20),
@@ -133,7 +125,6 @@ class _BudgetPageState extends State<BudgetPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Aggiungi una Row per il titolo e l'icona di modifica
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -168,9 +159,9 @@ class _BudgetPageState extends State<BudgetPage> {
                 ? (spentBudget / totalBudget).clamp(0.0, 1.0)
                 : 0,
             backgroundColor: const Color.fromARGB(
-                255, 26, 191, 32), // Parte rimanente in verde chiaro
+                255, 26, 191, 32),
             valueColor: const AlwaysStoppedAnimation<Color>(
-              Colors.red, // Parte spesa sempre in rosso
+              Colors.red,
             ),
           ),
           const SizedBox(height: 10),
@@ -184,9 +175,8 @@ class _BudgetPageState extends State<BudgetPage> {
               Text(
                 'Remaining: ${currencyFormat.format(totalBudget - spentBudget)}',
                 style: const TextStyle(
-                  color: Colors
-                      .white70, // Cambiato da Colors.white70 a Colors.green
-                  fontWeight: FontWeight.bold, // Aggiunto per enfatizzare
+                  color: Colors.white70,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ],
@@ -196,7 +186,6 @@ class _BudgetPageState extends State<BudgetPage> {
     );
   }
 
-  // Modifica il metodo _buildSpendingChart per gestire i dati mancanti
   Widget _buildSpendingChart() {
     if (spendingHistory.isEmpty) {
       return Container(
@@ -238,7 +227,6 @@ class _BudgetPageState extends State<BudgetPage> {
       );
     }
 
-    // Modifica la parte del LineChart per gestire i valori non validi
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -318,7 +306,7 @@ class _BudgetPageState extends State<BudgetPage> {
                           );
                         })
                         .whereType<FlSpot>()
-                        .toList(), // Filtra i valori null
+                        .toList(),
                     isCurved: true,
                     color: Colors.black,
                     barWidth: 3,
@@ -429,7 +417,6 @@ class _BudgetPageState extends State<BudgetPage> {
     });
   }
 
-  // Aggiungi questo metodo per gestire l'impostazione del budget
   Future<void> _showSetBudgetDialog() async {
     final budgetController = TextEditingController();
     return showDialog(
@@ -459,7 +446,7 @@ class _BudgetPageState extends State<BudgetPage> {
                       .collection('users')
                       .doc(user.uid)
                       .set({'budget': budget}, SetOptions(merge: true));
-                  _loadBudgetData(); // Ricarica i dati
+                  _loadBudgetData();
                 }
               }
               if (mounted) Navigator.pop(context);
@@ -471,7 +458,6 @@ class _BudgetPageState extends State<BudgetPage> {
     );
   }
 
-  // Modifica il metodo _loadBudgetData per gestire meglio gli errori
   Future<void> _loadBudgetData() async {
     try {
       setState(() => isLoading = true);
@@ -481,7 +467,6 @@ class _BudgetPageState extends State<BudgetPage> {
         throw Exception('User not authenticated');
       }
 
-      // Carica il budget dall'utente
       final userDoc = await FirebaseFirestore.instance
           .collection('users')
           .doc(user.uid)
@@ -489,7 +474,6 @@ class _BudgetPageState extends State<BudgetPage> {
 
       double currentBudget = (userDoc.data()?['budget'] ?? 0.0).toDouble();
 
-      // Carica gli scontrini del mese corrente
       final now = DateTime.now();
       final startOfMonth = DateTime(now.year, now.month, 1);
 
@@ -500,7 +484,6 @@ class _BudgetPageState extends State<BudgetPage> {
           .orderBy('date', descending: true)
           .get();
 
-      // Calcola il totale speso e crea la cronologia
       double total = 0;
       final history = receiptsSnapshot.docs.map((doc) {
         final data = doc.data();
@@ -512,7 +495,6 @@ class _BudgetPageState extends State<BudgetPage> {
         };
       }).toList();
 
-      // Aggiorna lo stato senza calcolo automatico del budget
       setState(() {
         spendingHistory = history;
         spentBudget = total;
@@ -520,12 +502,10 @@ class _BudgetPageState extends State<BudgetPage> {
         isLoading = false;
       });
 
-      // Se non c'è budget impostato e ci sono spese, mostra il dialog per impostarlo
       if (currentBudget == 0 && total > 0 && mounted) {
         _showSetBudgetDialog();
       }
     } catch (e) {
-      // ... gestione errori ...
     }
   }
 }

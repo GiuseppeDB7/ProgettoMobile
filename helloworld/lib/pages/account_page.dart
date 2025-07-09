@@ -6,7 +6,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class AccountPage extends StatelessWidget {
   const AccountPage({super.key});
 
-  // Funzione per ottenere i dati dell'utente
   Future<DocumentSnapshot> getUserData() async {
     final user = FirebaseAuth.instance.currentUser;
     return await FirebaseFirestore.instance
@@ -15,7 +14,6 @@ class AccountPage extends StatelessWidget {
         .get();
   }
 
-  // Metodo per aggiornare i dati dell'utente
   Future<void> updateUserField(String field, dynamic value) async {
     final user = FirebaseAuth.instance.currentUser;
     await FirebaseFirestore.instance.collection('users').doc(user!.uid).update({
@@ -23,7 +21,6 @@ class AccountPage extends StatelessWidget {
     });
   }
 
-  // Metodo per mostrare il dialog di modifica
   void showEditDialog(BuildContext context, String field, String currentValue) {
     final TextEditingController controller = TextEditingController(
       text: currentValue,
@@ -46,7 +43,6 @@ class AccountPage extends StatelessWidget {
               TextButton(
                 onPressed: () async {
                   try {
-                    // Gestione speciale per l'età (conversione in int)
                     final value =
                         field == 'age'
                             ? int.parse(controller.text)
@@ -55,7 +51,6 @@ class AccountPage extends StatelessWidget {
                     await updateUserField(field, value);
                     if (context.mounted) {
                       Navigator.pop(context);
-                      // Aggiorna la pagina
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
@@ -144,7 +139,6 @@ class AccountPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 20),
 
-                    // Sezione Informazioni Personali
                     const Text(
                       "User preferences",
                       style: TextStyle(
@@ -157,7 +151,6 @@ class AccountPage extends StatelessWidget {
                       leading: const Icon(Icons.email),
                       title: const Text("Email"),
                       subtitle: Text(userData['email']),
-                      // Rimossi trailing e onTap per disabilitare la modifica
                     ),
                     ListTile(
                       leading: const Icon(Icons.calendar_today),
@@ -198,7 +191,6 @@ class AccountPage extends StatelessWidget {
 
                     const SizedBox(height: 30),
 
-                    // Pulsante Delete Profile
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
@@ -212,7 +204,6 @@ class AccountPage extends StatelessWidget {
                           ),
                         ),
                         onPressed: () {
-                          // Da implementare
                         },
                         child: const Text(
                           "Delete profile",
