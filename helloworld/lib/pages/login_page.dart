@@ -54,7 +54,7 @@ class _LoginPageState extends State<LoginPage> {
                   const SizedBox(height: 10),
 
                   Text(
-                    'Organize your shopping effortlessly',
+                    'Organizza la tua spesa senza sforzo',
                     style: TextStyle(fontSize: 16, color: Colors.grey[700]),
                     textAlign: TextAlign.center,
                   ),
@@ -120,7 +120,7 @@ class _LoginPageState extends State<LoginPage> {
                   Align(
                     alignment: Alignment.centerRight,
                     child: Text(
-                      'Forgot Password?',
+                      'Password dimenticata?',
                       style: TextStyle(color: Colors.grey[600], fontSize: 14),
                     ),
                   ),
@@ -142,7 +142,7 @@ class _LoginPageState extends State<LoginPage> {
                       } catch (e) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                            content: Text('Sign In Error'),
+                            content: Text('Errore di accesso'),
                             backgroundColor: Colors.red,
                           ),
                         );
@@ -156,7 +156,7 @@ class _LoginPageState extends State<LoginPage> {
                       padding: const EdgeInsets.all(20),
                       child: const Center(
                         child: Text(
-                          'Sign In',
+                          'Accedi',
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -177,7 +177,7 @@ class _LoginPageState extends State<LoginPage> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10.0),
                         child: Text(
-                          'Or',
+                          'Oppure',
                           style: TextStyle(color: Colors.grey[700]),
                         ),
                       ),
@@ -193,7 +193,7 @@ class _LoginPageState extends State<LoginPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Not a member?',
+                        'Non sei ancora membro?',
                         style: TextStyle(color: Colors.grey[700]),
                       ),
                       const SizedBox(width: 4),
@@ -207,7 +207,7 @@ class _LoginPageState extends State<LoginPage> {
                           );
                         },
                         child: const Text(
-                          'Register now',
+                          'Registrati ora',
                           style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,

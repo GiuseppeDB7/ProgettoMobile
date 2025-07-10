@@ -21,7 +21,7 @@ class InfoPage extends StatelessWidget {
           },
         ),
         title: const Text(
-          "About",
+          "Informazioni",
           style: TextStyle(color: Colors.black, fontSize: 24),
         ),
       ),
@@ -32,25 +32,25 @@ class InfoPage extends StatelessWidget {
           children: [
             const SizedBox(height: 15),
             const Text(
-              "Developers",
+              "Sviluppatori",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 15),
             const ListTile(
               leading: Icon(Icons.person),
               title: Text("Di Biase Giuseppe"),
-              subtitle: Text("Backend Developer"),
+              subtitle: Text("Sviluppatore Backend"),
             ),
             const ListTile(
               leading: Icon(Icons.person),
               title: Text("De Luca Davide"),
-              subtitle: Text("Frontend Designer"),
+              subtitle: Text("Designer Frontend"),
             ),
             const Divider(),
 
             const SizedBox(height: 15),
             const Text(
-              "Contacs",
+              "Contatti",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 15),
@@ -64,7 +64,7 @@ class InfoPage extends StatelessWidget {
             ),
             ListTile(
               leading: const Icon(Icons.web),
-              title: const Text("Website"),
+              title: const Text("Sito Web"),
               subtitle: const Text("www.snapbasket.com"),
               onTap: () {
                 // Azione per aprire il sito web

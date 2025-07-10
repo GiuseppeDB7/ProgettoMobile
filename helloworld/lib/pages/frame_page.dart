@@ -45,10 +45,8 @@ class _FramePageState extends State<FramePage> {
       appBar: AppBar(
         backgroundColor: Colors.grey[300],
         elevation: 0,
-        scrolledUnderElevation:
-            0,
-        surfaceTintColor:
-            Colors.transparent,
+        scrolledUnderElevation: 0,
+        surfaceTintColor: Colors.transparent,
         shadowColor: Colors.transparent,
         leading: Builder(
           builder: (context) {
@@ -127,7 +125,7 @@ class _FramePageState extends State<FramePage> {
                     child: ListTile(
                       leading: const Icon(Icons.settings, color: Colors.white),
                       title: const Text(
-                        'Settings',
+                        'Impostazioni',
                         style: TextStyle(color: Colors.white),
                       ),
                       onTap: () {
@@ -145,7 +143,7 @@ class _FramePageState extends State<FramePage> {
                     child: ListTile(
                       leading: const Icon(Icons.info, color: Colors.white),
                       title: const Text(
-                        'About',
+                        'Informazioni',
                         style: TextStyle(color: Colors.white),
                       ),
                       onTap: () {
@@ -175,31 +173,28 @@ class _FramePageState extends State<FramePage> {
                           context: context,
                           builder: (BuildContext context) {
                             return AlertDialog(
-                              title: const Text('Logout confirm'),
+                              title: const Text('Conferma Logout'),
                               content: const Text(
-                                'Are you sure you want to logout?',
+                                'Sei sicuro di voler effettuare il logout?',
                               ),
                               actions: [
                                 TextButton(
                                   onPressed: () {
                                     Navigator.pop(context);
                                   },
-                                  child: const Text('Back'),
+                                  child: const Text('Indietro'),
                                 ),
                                 TextButton(
                                   onPressed: () async {
                                     try {
                                       await FirebaseAuth.instance.signOut();
                                       if (mounted) {
-                                        Navigator.pop(
-                                          context,
-                                        );
+                                        Navigator.pop(context);
                                         Navigator.pushReplacement(
                                           context,
                                           MaterialPageRoute(
                                             builder:
-                                                (context) =>
-                                                    const LoginPage(),
+                                                (context) => const LoginPage(),
                                           ),
                                         );
                                       }

@@ -30,15 +30,15 @@ class AccountPage extends StatelessWidget {
       context: context,
       builder:
           (context) => AlertDialog(
-            title: Text('Edit $field'),
+            title: Text('Modifica $field'),
             content: TextField(
               controller: controller,
-              decoration: InputDecoration(hintText: 'Enter new $field'),
+              decoration: InputDecoration(hintText: 'Inserisci $field'),
             ),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context),
-                child: const Text('Cancel'),
+                child: const Text('Annulla'),
               ),
               TextButton(
                 onPressed: () async {
@@ -62,11 +62,11 @@ class AccountPage extends StatelessWidget {
                     if (context.mounted) {
                       ScaffoldMessenger.of(
                         context,
-                      ).showSnackBar(SnackBar(content: Text('Error: $e')));
+                      ).showSnackBar(SnackBar(content: Text('Errore: $e')));
                     }
                   }
                 },
-                child: const Text('Save'),
+                child: const Text('Salva'),
               ),
             ],
           ),
@@ -102,7 +102,7 @@ class AccountPage extends StatelessWidget {
           }
 
           if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
+            return Center(child: Text('Errore: ${snapshot.error}'));
           }
 
           if (snapshot.hasData) {
@@ -140,7 +140,7 @@ class AccountPage extends StatelessWidget {
                     const SizedBox(height: 20),
 
                     const Text(
-                      "User preferences",
+                      "Preferenze utente",
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -154,8 +154,8 @@ class AccountPage extends StatelessWidget {
                     ),
                     ListTile(
                       leading: const Icon(Icons.calendar_today),
-                      title: const Text("Age"),
-                      subtitle: Text("${userData['age']} years"),
+                      title: const Text("Età"),
+                      subtitle: Text("${userData['age']} anni"),
                       trailing: const Icon(Icons.edit),
                       onTap:
                           () => showEditDialog(
@@ -166,7 +166,7 @@ class AccountPage extends StatelessWidget {
                     ),
                     ListTile(
                       leading: const Icon(Icons.phone),
-                      title: const Text("Phone"),
+                      title: const Text("Telefono"),
                       subtitle: Text(userData['phone'] ?? "+39 XXX XXX XXXX"),
                       trailing: const Icon(Icons.edit),
                       onTap:
@@ -178,7 +178,7 @@ class AccountPage extends StatelessWidget {
                     ),
                     ListTile(
                       leading: const Icon(Icons.location_on),
-                      title: const Text("Address"),
+                      title: const Text("Indirizzo"),
                       subtitle: Text(userData['address'] ?? "Via Example, 123"),
                       trailing: const Icon(Icons.edit),
                       onTap:
@@ -203,10 +203,9 @@ class AccountPage extends StatelessWidget {
                             6,
                           ),
                         ),
-                        onPressed: () {
-                        },
+                        onPressed: () {},
                         child: const Text(
-                          "Delete profile",
+                          "Elimina profilo",
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -220,7 +219,7 @@ class AccountPage extends StatelessWidget {
             );
           }
 
-          return const Center(child: Text('No user data found'));
+          return const Center(child: Text('Nessun dato utente trovato'));
         },
       ),
     );

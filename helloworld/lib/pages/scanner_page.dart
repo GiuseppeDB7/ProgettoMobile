@@ -28,15 +28,15 @@ class _ScannerPageState extends State<ScannerPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Date not found'),
+          title: const Text('Data non trovata'),
           content: const Text(
-            'The scanner could not find the receipt date. '
-            'Please enter the date manually.',
+            'Lo scanner non è riuscito a trovare la data dello scontrino. '
+            'Inserisci la data manualmente.',
           ),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: const Text('Cancel'),
+              child: const Text('Annulla'),
             ),
             TextButton(
               onPressed: () async {
@@ -58,7 +58,7 @@ class _ScannerPageState extends State<ScannerPage> {
                 );
                 Navigator.of(context).pop(date);
               },
-              child: const Text('Select Date'),
+              child: const Text('Seleziona Data'),
             ),
           ],
         );
@@ -72,13 +72,13 @@ class _ScannerPageState extends State<ScannerPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Total not found'),
+          title: const Text('Totale non trovato'),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               const Text(
-                'The scanner could not find the receipt total. '
-                'Please enter the total manually.',
+                'Lo scanner non è riuscito a trovare il totale dello scontrino. '
+                'Inserisci il totale manualmente.',
               ),
               const SizedBox(height: 16),
               TextField(
@@ -87,7 +87,7 @@ class _ScannerPageState extends State<ScannerPage> {
                   decimal: true,
                 ),
                 decoration: const InputDecoration(
-                  labelText: 'Total',
+                  labelText: 'Totale',
                   prefixText: '€ ',
                   border: OutlineInputBorder(),
                 ),
@@ -97,7 +97,7 @@ class _ScannerPageState extends State<ScannerPage> {
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: const Text('Cancel'),
+              child: const Text('Annulla'),
             ),
             TextButton(
               onPressed: () {
@@ -106,7 +106,7 @@ class _ScannerPageState extends State<ScannerPage> {
                 );
                 Navigator.of(context).pop(total);
               },
-              child: const Text('Confirm'),
+              child: const Text('Conferma'),
             ),
           ],
         );
@@ -139,7 +139,7 @@ class _ScannerPageState extends State<ScannerPage> {
         if (selectedDate == null) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('You need to select a date for the receipt'),
+              content: Text('Devi selezionare una data per lo scontrino'),
               backgroundColor: Colors.orange,
             ),
           );
@@ -153,7 +153,7 @@ class _ScannerPageState extends State<ScannerPage> {
         if (manualTotal == null) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('You need to enter the receipt total'),
+              content: Text('Devi inserire il totale dello scontrino'),
               backgroundColor: Colors.orange,
             ),
           );
@@ -184,7 +184,7 @@ class _ScannerPageState extends State<ScannerPage> {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('Receipt saved successfully'),
+              content: Text('Scontrino salvato con successo'),
               backgroundColor: Colors.green,
             ),
           );
@@ -197,7 +197,7 @@ class _ScannerPageState extends State<ScannerPage> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Error processing receipt: $e'),
+            content: Text('Errore nell\'elaborazione dello scontrino: $e'),
             backgroundColor: Colors.red,
           ),
         );
@@ -216,9 +216,9 @@ class _ScannerPageState extends State<ScannerPage> {
         await _processImage(File(pickedFile.path));
       }
     } catch (e) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text('Error picking image: $e')));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Errore nella selezione dell\'immagine: $e')),
+      );
     }
   }
 
@@ -297,9 +297,7 @@ class _ScannerPageState extends State<ScannerPage> {
       backgroundColor: Colors.grey[300],
       extendBodyBehindAppBar: true,
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(
-          0,
-        ),
+        preferredSize: const Size.fromHeight(0),
         child: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
@@ -312,8 +310,7 @@ class _ScannerPageState extends State<ScannerPage> {
       body: Container(
         color: Colors.grey[300],
         child: SingleChildScrollView(
-          physics:
-              const ClampingScrollPhysics(),
+          physics: const ClampingScrollPhysics(),
           child: Padding(
             padding: const EdgeInsets.all(20),
             child: Column(
@@ -324,12 +321,8 @@ class _ScannerPageState extends State<ScannerPage> {
                 else if (_lastScanSuccessful)
                   Container(
                     padding: const EdgeInsets.all(16),
-                    margin: const EdgeInsets.only(
-                      bottom: 20,
-                    ),
-                    width:
-                        MediaQuery.of(context).size.width *
-                        0.5,
+                    margin: const EdgeInsets.only(bottom: 20),
+                    width: MediaQuery.of(context).size.width * 0.5,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(12),
@@ -350,7 +343,7 @@ class _ScannerPageState extends State<ScannerPage> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             const Text(
-                              'Receipt Summary',
+                              'Riepilogo Scontrino',
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
@@ -368,7 +361,7 @@ class _ScannerPageState extends State<ScannerPage> {
                         if (_lastScannedDate != null)
                           ListTile(
                             leading: const Icon(Icons.calendar_today),
-                            title: const Text('Date'),
+                            title: const Text('Data'),
                             subtitle: Text(
                               '${_lastScannedDate!.day}/${_lastScannedDate!.month}/${_lastScannedDate!.year}',
                             ),
@@ -376,7 +369,7 @@ class _ScannerPageState extends State<ScannerPage> {
                         if (_lastScannedTotal != null)
                           ListTile(
                             leading: const Icon(Icons.euro),
-                            title: const Text('Total'),
+                            title: const Text('Totale'),
                             subtitle: Text(
                               '€ ${_lastScannedTotal!.toStringAsFixed(2)}',
                             ),
@@ -387,18 +380,15 @@ class _ScannerPageState extends State<ScannerPage> {
                             color: Colors.green,
                           ),
                           title: const Text('Stato'),
-                          subtitle: const Text('Saved successfully'),
+                          subtitle: const Text('Salvato con successo'),
                         ),
                       ],
                     ),
                   ),
                 Container(
                   height: 350,
-                  width:
-                      MediaQuery.of(context).size.width *
-                      0.5,
-                  alignment:
-                      Alignment.center,
+                  width: MediaQuery.of(context).size.width * 0.5,
+                  alignment: Alignment.center,
                   margin: const EdgeInsets.only(bottom: 15),
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -417,11 +407,7 @@ class _ScannerPageState extends State<ScannerPage> {
                       _image != null
                           ? ClipRRect(
                             borderRadius: BorderRadius.circular(12),
-                            child: Image.file(
-                              _image!,
-                              fit:
-                                  BoxFit.contain,
-                            ),
+                            child: Image.file(_image!, fit: BoxFit.contain),
                           )
                           : Column(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -433,7 +419,7 @@ class _ScannerPageState extends State<ScannerPage> {
                               ),
                               const SizedBox(height: 16),
                               const Text(
-                                'Hey! I\'m ready to scan\nyour receipt!',
+                                'Ciao! Sono pronto a scansionare\nil tuo scontrino!',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   color: Colors.black87,
@@ -443,7 +429,7 @@ class _ScannerPageState extends State<ScannerPage> {
                               ),
                               const SizedBox(height: 8),
                               const Text(
-                                'Use camera or choose from gallery',
+                                'Usa la fotocamera o scegli dalla galleria',
                                 style: TextStyle(
                                   color: Colors.black54,
                                   fontSize: 14,
@@ -462,7 +448,7 @@ class _ScannerPageState extends State<ScannerPage> {
                         ElevatedButton.icon(
                           onPressed: () => _getImage(ImageSource.camera),
                           icon: const Icon(Icons.camera_alt),
-                          label: const Text('Camera'),
+                          label: const Text('Fotocamera'),
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.black,
                             foregroundColor: Colors.white,
@@ -471,7 +457,7 @@ class _ScannerPageState extends State<ScannerPage> {
                         ElevatedButton.icon(
                           onPressed: () => _getImage(ImageSource.gallery),
                           icon: const Icon(Icons.photo_library),
-                          label: const Text('Gallery'),
+                          label: const Text('Galleria'),
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.black,
                             foregroundColor: Colors.white,

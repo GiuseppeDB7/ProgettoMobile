@@ -19,7 +19,7 @@ class ListPage extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: const Text(
-          'My Lists',
+          'Le Mie Liste',
           style: TextStyle(
             color: Colors.black87,
             fontSize: 24,
@@ -52,7 +52,7 @@ class ListPage extends StatelessWidget {
                   ],
                 ),
                 child: const Text(
-                  'Unauthorized access',
+                  'Accesso non autorizzato',
                   style: TextStyle(
                     color: Colors.red,
                     fontSize: 18,
@@ -86,7 +86,7 @@ class ListPage extends StatelessWidget {
                           ],
                         ),
                         child: Text(
-                          'An error occurred: ${snapshot.error}',
+                          'Si è verificato un errore: ${snapshot.error}',
                           style: const TextStyle(
                             color: Colors.red,
                             fontSize: 16,
@@ -117,7 +117,7 @@ class ListPage extends StatelessWidget {
                           ],
                         ),
                         child: const Text(
-                          "No lists found...",
+                          "Nessuna lista trovata...",
                           style: TextStyle(
                             color: Colors.grey,
                             fontSize: 18,
@@ -136,9 +136,7 @@ class ListPage extends StatelessWidget {
                       final docID = document.id;
 
                       return Container(
-                        margin: const EdgeInsets.only(
-                          bottom: 10,
-                        ),
+                        margin: const EdgeInsets.only(bottom: 10),
                         decoration: BoxDecoration(
                           gradient: const LinearGradient(
                             colors: [Color(0xFF000000), Color(0xFF434343)],
@@ -161,7 +159,7 @@ class ListPage extends StatelessWidget {
                             vertical: 10,
                           ),
                           title: Text(
-                            data['name'] ?? 'No name',
+                            data['name'] ?? 'Senza nome',
                             style: const TextStyle(
                               color: Colors.white,
                               fontSize: 18,
@@ -173,7 +171,7 @@ class ListPage extends StatelessWidget {
                             children: [
                               const SizedBox(height: 4),
                               Text(
-                                data['description'] ?? 'No description',
+                                data['description'] ?? 'Senza descrizione',
                                 style: TextStyle(
                                   color: Colors.white.withOpacity(0.7),
                                   fontSize: 14,
@@ -246,11 +244,11 @@ class ListPage extends StatelessWidget {
       context: context,
       builder:
           (context) => AlertDialog(
-            title: const Text('Edit Description'),
+            title: const Text('Modifica Descrizione'),
             content: TextField(
               controller: editController,
               decoration: const InputDecoration(
-                labelText: 'New Description',
+                labelText: 'Nuova Descrizione',
                 border: OutlineInputBorder(),
               ),
               maxLines: 3,
@@ -258,7 +256,7 @@ class ListPage extends StatelessWidget {
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context),
-                child: const Text('Cancel'),
+                child: const Text('Annulla'),
               ),
               TextButton(
                 onPressed: () async {
@@ -273,7 +271,7 @@ class ListPage extends StatelessWidget {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                             content: Text(
-                              'Description updated successfully!',
+                              'Descrizione aggiornata con successo!',
                             ),
                             backgroundColor: Colors.green,
                           ),
@@ -284,9 +282,7 @@ class ListPage extends StatelessWidget {
                         Navigator.pop(context);
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                            content: Text(
-                              'Error: ${e.toString()}',
-                            ),
+                            content: Text('Errore: ${e.toString()}'),
                             backgroundColor: Colors.red,
                           ),
                         );
@@ -294,7 +290,7 @@ class ListPage extends StatelessWidget {
                     }
                   }
                 },
-                child: const Text('Confirm'),
+                child: const Text('Conferma'),
               ),
             ],
           ),
@@ -306,14 +302,14 @@ class ListPage extends StatelessWidget {
       context: context,
       builder:
           (context) => AlertDialog(
-            title: const Text('Confirm Deletion'),
+            title: const Text('Conferma Cancellazione'),
             content: Text(
-              'Are you sure you want to delete the list "$listName"?',
+              'Sei sicuro di voler eliminare la lista "$listName"?',
             ),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context),
-                child: const Text('Cancel'),
+                child: const Text('Annulla'),
               ),
               TextButton(
                 onPressed: () async {
@@ -323,9 +319,7 @@ class ListPage extends StatelessWidget {
                       Navigator.pop(context);
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
-                          content: Text(
-                            'List deleted successfully!',
-                          ),
+                          content: Text('Lista eliminata con successo!'),
                           backgroundColor: Colors.green,
                         ),
                       );
@@ -335,7 +329,7 @@ class ListPage extends StatelessWidget {
                       Navigator.pop(context);
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          content: Text('Error: ${e.toString()}'),
+                          content: Text('Errore: ${e.toString()}'),
                           backgroundColor: Colors.red,
                         ),
                       );
@@ -343,7 +337,7 @@ class ListPage extends StatelessWidget {
                   }
                 },
                 child: const Text(
-                  'Delete',
+                  'Elimina',
                   style: TextStyle(color: Colors.red),
                 ),
               ),

@@ -83,7 +83,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text(
-                    'Create Account',
+                    'Crea Account',
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
                   ),
 
@@ -100,7 +100,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         borderSide: BorderSide(color: Colors.grey.shade900),
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      hintText: 'First Name',
+                      hintText: 'Nome',
                       fillColor: Colors.grey.shade100,
                       filled: true,
                       prefixIcon: Icon(Icons.person, color: Colors.grey[600]),
@@ -120,7 +120,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         borderSide: BorderSide(color: Colors.grey.shade900),
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      hintText: 'Last Name',
+                      hintText: 'Cognome',
                       fillColor: Colors.grey.shade100,
                       filled: true,
                       prefixIcon: Icon(
@@ -145,7 +145,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         borderSide: BorderSide(color: Colors.grey.shade900),
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      hintText: 'Age',
+                      hintText: 'Età',
                       fillColor: Colors.grey.shade100,
                       filled: true,
                       prefixIcon: Icon(
@@ -223,7 +223,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         borderSide: BorderSide(color: Colors.grey.shade900),
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      hintText: 'Confirm Password',
+                      hintText: 'Conferma Password',
                       fillColor: Colors.grey.shade100,
                       filled: true,
                       prefixIcon: Icon(
@@ -277,7 +277,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       padding: const EdgeInsets.all(20),
                       child: const Center(
                         child: Text(
-                          'Sign Up',
+                          'Registrati',
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -298,7 +298,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10.0),
                         child: Text(
-                          'Or',
+                          'Oppure',
                           style: TextStyle(color: Colors.grey[700]),
                         ),
                       ),
@@ -314,7 +314,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Already have an account?',
+                        'Hai già un account?',
                         style: TextStyle(color: Colors.grey[700]),
                       ),
                       const SizedBox(width: 4),
@@ -323,7 +323,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           Navigator.pop(context);
                         },
                         child: const Text(
-                          'Sign In',
+                          'Accedi',
                           style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,

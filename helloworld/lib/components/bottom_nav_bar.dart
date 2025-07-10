@@ -41,7 +41,7 @@ class MyBottomNavBar extends StatelessWidget {
             ),
             GButton(
               icon: Icons.format_list_bulleted_rounded,
-              text: 'Lists',
+              text: 'Liste',
               textStyle: TextStyle(
                 color: Colors.white,
                 fontFamily: 'Poppins',
@@ -68,7 +68,7 @@ class MyBottomNavBar extends StatelessWidget {
             ),
             GButton(
               icon: Icons.receipt_rounded,
-              text: 'Receipts',
+              text: 'Scontrini',
               textStyle: TextStyle(
                 color: Colors.white,
                 fontFamily: 'Poppins',

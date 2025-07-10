@@ -31,10 +31,11 @@ class _HomePageState extends State<HomePage> {
   Future<void> _loadUserName() async {
     final user = FirebaseAuth.instance.currentUser;
     if (user != null) {
-      final userData = await FirebaseFirestore.instance
-          .collection('users')
-          .doc(user.uid)
-          .get();
+      final userData =
+          await FirebaseFirestore.instance
+              .collection('users')
+              .doc(user.uid)
+              .get();
 
       if (userData.exists) {
         setState(() {
@@ -51,20 +52,22 @@ class _HomePageState extends State<HomePage> {
     final now = DateTime.now();
     final startOfMonth = DateTime(now.year, now.month, 1);
 
-    final receiptsSnapshot = await FirebaseFirestore.instance
-        .collection('receipts')
-        .where('userId', isEqualTo: user.uid)
-        .where('date', isGreaterThanOrEqualTo: startOfMonth)
-        .orderBy('date', descending: true)
-        .get();
+    final receiptsSnapshot =
+        await FirebaseFirestore.instance
+            .collection('receipts')
+            .where('userId', isEqualTo: user.uid)
+            .where('date', isGreaterThanOrEqualTo: startOfMonth)
+            .orderBy('date', descending: true)
+            .get();
 
-    final history = receiptsSnapshot.docs.map((doc) {
-      final data = doc.data();
-      return {
-        'date': data['date'],
-        'total': (data['total'] as num).toDouble(),
-      };
-    }).toList();
+    final history =
+        receiptsSnapshot.docs.map((doc) {
+          final data = doc.data();
+          return {
+            'date': data['date'],
+            'total': (data['total'] as num).toDouble(),
+          };
+        }).toList();
 
     setState(() {
       spendingHistory = history;
@@ -96,9 +99,7 @@ class _HomePageState extends State<HomePage> {
                     letterSpacing: 0.5,
                   ),
                   children: [
-                    const TextSpan(
-                      text: 'Welcome back, ',
-                    ),
+                    const TextSpan(text: 'Welcome back, '),
                     TextSpan(
                       text: firstName ?? "User",
                       style: const TextStyle(
@@ -113,8 +114,7 @@ class _HomePageState extends State<HomePage> {
             Container(
               padding: const EdgeInsets.all(20),
               width: double.infinity,
-              constraints: const BoxConstraints(
-                  maxWidth: 500),
+              constraints: const BoxConstraints(maxWidth: 500),
               decoration: BoxDecoration(
                 gradient: const LinearGradient(
                   colors: [Color(0xFF000000), Color(0xFF434343)],
@@ -153,17 +153,17 @@ class _HomePageState extends State<HomePage> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                       filled: true,
-                      fillColor:
-                          Colors.white.withOpacity(0.15),
+                      fillColor: Colors.white.withOpacity(0.15),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide:
-                            const BorderSide(color: Colors.white),
+                        borderSide: const BorderSide(color: Colors.white),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide:
-                            const BorderSide(color: Colors.white, width: 2),
+                        borderSide: const BorderSide(
+                          color: Colors.white,
+                          width: 2,
+                        ),
                       ),
                     ),
                     style: const TextStyle(color: Colors.white, fontSize: 16),
@@ -178,17 +178,17 @@ class _HomePageState extends State<HomePage> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                       filled: true,
-                      fillColor:
-                          Colors.white.withOpacity(0.15),
+                      fillColor: Colors.white.withOpacity(0.15),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide:
-                            const BorderSide(color: Colors.white),
+                        borderSide: const BorderSide(color: Colors.white),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide:
-                            const BorderSide(color: Colors.white, width: 2),
+                        borderSide: const BorderSide(
+                          color: Colors.white,
+                          width: 2,
+                        ),
                       ),
                     ),
                     style: const TextStyle(color: Colors.white, fontSize: 16),
@@ -207,23 +207,25 @@ class _HomePageState extends State<HomePage> {
                               borderRadius: BorderRadius.circular(10),
                             ),
                             filled: true,
-                            fillColor: Colors.white
-                                .withOpacity(0.15),
+                            fillColor: Colors.white.withOpacity(0.15),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(
-                                  color: Colors.white),
+                              borderSide: const BorderSide(color: Colors.white),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                               borderSide: const BorderSide(
-                                  color: Colors.white, width: 2),
+                                color: Colors.white,
+                                width: 2,
+                              ),
                             ),
                             prefixText: '€ ',
                             prefixStyle: const TextStyle(color: Colors.white),
                           ),
                           style: const TextStyle(
-                              color: Colors.white, fontSize: 16),
+                            color: Colors.white,
+                            fontSize: 16,
+                          ),
                           keyboardType: TextInputType.number,
                         ),
                       ),
@@ -261,9 +263,10 @@ class _HomePageState extends State<HomePage> {
                                 context: context,
                                 builder: (BuildContext context) {
                                   return AlertDialog(
-                                    title: const Text('List Created'),
+                                    title: const Text('Lista Creata'),
                                     content: Text(
-                                        'The list "$listName" has been created successfully!'),
+                                      'La lista "$listName" è stata creata con successo!',
+                                    ),
                                     actions: [
                                       TextButton(
                                         onPressed: () {
@@ -283,16 +286,15 @@ class _HomePageState extends State<HomePage> {
                                 barrierDismissible: false,
                                 builder: (BuildContext context) {
                                   return AlertDialog(
-                                    title: const Text('Error'),
+                                    title: const Text('Errore'),
                                     content: Text(e.toString()),
                                     actions: [
                                       TextButton(
                                         onPressed: () {
                                           Navigator.pop(context);
-                                          if (e
-                                              .toString()
-                                              .contains('non autenticato')) {
-                                          }
+                                          if (e.toString().contains(
+                                            'non autenticato',
+                                          )) {}
                                         },
                                         child: const Text('OK'),
                                       ),
@@ -304,10 +306,7 @@ class _HomePageState extends State<HomePage> {
                           }
                         },
                         backgroundColor: Colors.white,
-                        child: const Icon(
-                          Icons.add,
-                          color: Colors.black,
-                        ),
+                        child: const Icon(Icons.add, color: Colors.black),
                       ),
                     ],
                   ),
@@ -343,20 +342,14 @@ class _HomePageState extends State<HomePage> {
                   const SizedBox(height: 8),
                   const Text(
                     'Spending Trend',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 20),
                   if (spendingHistory.isEmpty)
                     const Center(
                       child: Text(
                         'No spending recorded',
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 16,
-                        ),
+                        style: TextStyle(color: Colors.grey, fontSize: 16),
                       ),
                     )
                   else
@@ -403,22 +396,23 @@ class _HomePageState extends State<HomePage> {
                           borderData: FlBorderData(show: false),
                           lineBarsData: [
                             LineChartBarData(
-                              spots: spendingHistory
-                                  .asMap()
-                                  .entries
-                                  .map((entry) {
-                                    final value =
-                                        entry.value['total'].toDouble();
-                                    if (value.isNaN || value.isInfinite) {
-                                      return null;
-                                    }
-                                    return FlSpot(
-                                      entry.key.toDouble(),
-                                      value,
-                                    );
-                                  })
-                                  .whereType<FlSpot>()
-                                  .toList(),
+                              spots:
+                                  spendingHistory
+                                      .asMap()
+                                      .entries
+                                      .map((entry) {
+                                        final value =
+                                            entry.value['total'].toDouble();
+                                        if (value.isNaN || value.isInfinite) {
+                                          return null;
+                                        }
+                                        return FlSpot(
+                                          entry.key.toDouble(),
+                                          value,
+                                        );
+                                      })
+                                      .whereType<FlSpot>()
+                                      .toList(),
                               isCurved: true,
                               color: Colors.black,
                               barWidth: 3,

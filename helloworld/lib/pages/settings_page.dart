@@ -22,7 +22,7 @@ class SettingsPage extends StatelessWidget {
           },
         ),
         title: const Text(
-          "Settings",
+          "Impostazioni",
           style: TextStyle(color: Colors.black, fontSize: 24),
         ),
       ),
@@ -39,7 +39,7 @@ class SettingsPage extends StatelessWidget {
             const SizedBox(height: 15),
             ListTile(
               leading: const Icon(Icons.person),
-              title: const Text("Profile"),
+              title: const Text("Profilo"),
               trailing: const Icon(Icons.arrow_forward_ios),
               onTap: () {
                 Navigator.pushReplacement(
@@ -50,7 +50,7 @@ class SettingsPage extends StatelessWidget {
             ),
             ListTile(
               leading: const Icon(Icons.notifications),
-              title: const Text("Notifications"),
+              title: const Text("Notifiche"),
               trailing: Switch(
                 value: true,
                 onChanged: (bool value) {
@@ -67,15 +67,15 @@ class SettingsPage extends StatelessWidget {
             const SizedBox(height: 15),
             ListTile(
               leading: const Icon(Icons.language),
-              title: const Text("Language"),
-              trailing: const Text("Italian"),
+              title: const Text("Lingua"),
+              trailing: const Text("Italiano"),
               onTap: () {
                 // Azione per la lingua
               },
             ),
             ListTile(
               leading: const Icon(Icons.dark_mode),
-              title: const Text("Dark Theme"),
+              title: const Text("Tema Scuro"),
               trailing: Switch(
                 value: false,
                 onChanged: (bool value) {
@@ -92,7 +92,7 @@ class SettingsPage extends StatelessWidget {
             const SizedBox(height: 15),
             const ListTile(
               leading: Icon(Icons.info),
-              title: Text("App Version"),
+              title: Text("Versione App"),
               trailing: Text("1.0.0"),
             ),
             ListTile(
