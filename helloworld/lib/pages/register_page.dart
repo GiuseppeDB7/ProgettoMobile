@@ -12,7 +12,6 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  // text controllers
   final _nameController = TextEditingController();
   final _surnameController = TextEditingController();
   final _ageController = TextEditingController();
@@ -20,18 +19,15 @@ class _RegisterPageState extends State<RegisterPage> {
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
 
-  // Aggiungi queste variabili all'inizio della classe
   bool _passwordVisible = false;
   bool _confirmPasswordVisible = false;
 
   Future signUp() async {
-    // Verifica se le password coincidono
     if (_passwordController.text.trim() !=
         _confirmPasswordController.text.trim()) {
       throw "Le password non coincidono";
     }
 
-    // Imposta la lingua di Firebase
     try {
       FirebaseAuth.instance.setLanguageCode('it');
       print("Lingua impostata correttamente su 'it'");
@@ -39,7 +35,6 @@ class _RegisterPageState extends State<RegisterPage> {
       print("Errore durante l'impostazione della lingua: $e");
     }
 
-    // Crea l'utente con email e password
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(
@@ -48,7 +43,6 @@ class _RegisterPageState extends State<RegisterPage> {
           );
       print("Utente creato con successo: ${userCredential.user?.uid}");
 
-      // Dopo aver creato l'utente, salva i dati aggiuntivi in Firestore
       await FirebaseFirestore.instance
           .collection('users')
           .doc(userCredential.user!.uid)
@@ -88,7 +82,6 @@ class _RegisterPageState extends State<RegisterPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // Titolo
                   const Text(
                     'Create Account',
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
@@ -96,7 +89,6 @@ class _RegisterPageState extends State<RegisterPage> {
 
                   const SizedBox(height: 30),
 
-                  // First Name
                   TextField(
                     controller: _nameController,
                     decoration: InputDecoration(
@@ -117,7 +109,6 @@ class _RegisterPageState extends State<RegisterPage> {
 
                   const SizedBox(height: 20),
 
-                  // Last Name
                   TextField(
                     controller: _surnameController,
                     decoration: InputDecoration(
@@ -141,7 +132,6 @@ class _RegisterPageState extends State<RegisterPage> {
 
                   const SizedBox(height: 20),
 
-                  // Age (solo numerico)
                   TextField(
                     controller: _ageController,
                     keyboardType: TextInputType.number,
@@ -167,7 +157,6 @@ class _RegisterPageState extends State<RegisterPage> {
 
                   const SizedBox(height: 20),
 
-                  // email
                   TextField(
                     controller: _emailController,
                     decoration: InputDecoration(
@@ -188,7 +177,6 @@ class _RegisterPageState extends State<RegisterPage> {
 
                   const SizedBox(height: 20),
 
-                  // password
                   TextField(
                     controller: _passwordController,
                     obscureText: !_passwordVisible,
@@ -223,7 +211,6 @@ class _RegisterPageState extends State<RegisterPage> {
 
                   const SizedBox(height: 20),
 
-                  // Confirm Password
                   TextField(
                     controller: _confirmPasswordController,
                     obscureText: !_confirmPasswordVisible,
@@ -261,7 +248,6 @@ class _RegisterPageState extends State<RegisterPage> {
 
                   const SizedBox(height: 25),
 
-                  //  Sign Up
                   GestureDetector(
                     onTap: () async {
                       try {
@@ -304,7 +290,6 @@ class _RegisterPageState extends State<RegisterPage> {
 
                   const SizedBox(height: 10),
 
-                  // Divisore con testo
                   Row(
                     children: [
                       Expanded(
@@ -325,7 +310,6 @@ class _RegisterPageState extends State<RegisterPage> {
 
                   const SizedBox(height: 5),
 
-                  // Opzione per tornare al login
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

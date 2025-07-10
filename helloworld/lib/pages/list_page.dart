@@ -6,7 +6,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 class ListPage extends StatelessWidget {
   const ListPage({super.key});
 
-  // Aggiungi questo metodo per verificare l'utente
   Future<bool> _checkUser() async {
     final user = FirebaseAuth.instance.currentUser;
     return user != null;
@@ -70,7 +69,6 @@ class ListPage extends StatelessWidget {
               child: StreamBuilder<QuerySnapshot>(
                 stream: FirestoreService().getListsStream(),
                 builder: (context, snapshot) {
-                  // Gestione degli errori
                   if (snapshot.hasError) {
                     return Center(
                       child: Container(
@@ -98,12 +96,10 @@ class ListPage extends StatelessWidget {
                     );
                   }
 
-                  // Gestione del caricamento
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(child: CircularProgressIndicator());
                   }
 
-                  // Verifica se ci sono dati
                   if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
                     return Center(
                       child: Container(
@@ -132,7 +128,6 @@ class ListPage extends StatelessWidget {
                     );
                   }
 
-                  // Costruzione della lista
                   return ListView.builder(
                     itemCount: snapshot.data!.docs.length,
                     itemBuilder: (context, index) {
@@ -143,7 +138,7 @@ class ListPage extends StatelessWidget {
                       return Container(
                         margin: const EdgeInsets.only(
                           bottom: 10,
-                        ), // Ridotto da 15 a 10
+                        ),
                         decoration: BoxDecoration(
                           gradient: const LinearGradient(
                             colors: [Color(0xFF000000), Color(0xFF434343)],
@@ -164,7 +159,7 @@ class ListPage extends StatelessWidget {
                           contentPadding: const EdgeInsets.symmetric(
                             horizontal: 20,
                             vertical: 10,
-                          ), // Modificato il padding verticale
+                          ),
                           title: Text(
                             data['name'] ?? 'No name',
                             style: const TextStyle(
@@ -176,7 +171,7 @@ class ListPage extends StatelessWidget {
                           subtitle: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const SizedBox(height: 4), // Ridotto da 8 a 4
+                              const SizedBox(height: 4),
                               Text(
                                 data['description'] ?? 'No description',
                                 style: TextStyle(
@@ -184,7 +179,7 @@ class ListPage extends StatelessWidget {
                                   fontSize: 14,
                                 ),
                               ),
-                              const SizedBox(height: 4), // Ridotto da 8 a 4
+                              const SizedBox(height: 4),
                               Text(
                                 'Budget: €${(data['budget'] as num).toStringAsFixed(2)}',
                                 style: const TextStyle(
@@ -240,7 +235,6 @@ class ListPage extends StatelessWidget {
     );
   }
 
-  // Dialog per la modifica
   void _showEditDialog(
     BuildContext context,
     String docID,
@@ -252,11 +246,11 @@ class ListPage extends StatelessWidget {
       context: context,
       builder:
           (context) => AlertDialog(
-            title: const Text('Edit Description'), // Modificato
+            title: const Text('Edit Description'),
             content: TextField(
               controller: editController,
               decoration: const InputDecoration(
-                labelText: 'New Description', // Modificato
+                labelText: 'New Description',
                 border: OutlineInputBorder(),
               ),
               maxLines: 3,
@@ -264,7 +258,7 @@ class ListPage extends StatelessWidget {
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context),
-                child: const Text('Cancel'), // Modificato
+                child: const Text('Cancel'),
               ),
               TextButton(
                 onPressed: () async {
@@ -280,7 +274,7 @@ class ListPage extends StatelessWidget {
                           const SnackBar(
                             content: Text(
                               'Description updated successfully!',
-                            ), // Modificato
+                            ),
                             backgroundColor: Colors.green,
                           ),
                         );
@@ -292,7 +286,7 @@ class ListPage extends StatelessWidget {
                           SnackBar(
                             content: Text(
                               'Error: ${e.toString()}',
-                            ), // Modificato
+                            ),
                             backgroundColor: Colors.red,
                           ),
                         );
@@ -300,27 +294,26 @@ class ListPage extends StatelessWidget {
                     }
                   }
                 },
-                child: const Text('Confirm'), // Modificato
+                child: const Text('Confirm'),
               ),
             ],
           ),
     );
   }
 
-  // Dialog per l'eliminazione
   void _showDeleteDialog(BuildContext context, String docID, String listName) {
     showDialog(
       context: context,
       builder:
           (context) => AlertDialog(
-            title: const Text('Confirm Deletion'), // Modificato
+            title: const Text('Confirm Deletion'),
             content: Text(
               'Are you sure you want to delete the list "$listName"?',
-            ), // Modificato
+            ),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context),
-                child: const Text('Cancel'), // Modificato
+                child: const Text('Cancel'),
               ),
               TextButton(
                 onPressed: () async {
@@ -332,7 +325,7 @@ class ListPage extends StatelessWidget {
                         const SnackBar(
                           content: Text(
                             'List deleted successfully!',
-                          ), // Modificato
+                          ),
                           backgroundColor: Colors.green,
                         ),
                       );
@@ -342,7 +335,7 @@ class ListPage extends StatelessWidget {
                       Navigator.pop(context);
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          content: Text('Error: ${e.toString()}'), // Modificato
+                          content: Text('Error: ${e.toString()}'),
                           backgroundColor: Colors.red,
                         ),
                       );
@@ -350,7 +343,7 @@ class ListPage extends StatelessWidget {
                   }
                 },
                 child: const Text(
-                  'Delete', // Modificato
+                  'Delete',
                   style: TextStyle(color: Colors.red),
                 ),
               ),

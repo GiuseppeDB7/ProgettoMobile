@@ -29,26 +29,21 @@ class Cart extends ChangeNotifier {
     ),
   ];
 
-  //list items in cart
   List<Item> userCart = [];
 
-  //get list of Items for sale
   List<Item> getItemList() {
     return itemShop;
   }
 
-  //get cart
   List<Item> getUserCart() {
     return userCart;
   }
 
-  //add to cart
   void addItemToCart(Item item) {
     userCart.add(item);
     notifyListeners();
   }
 
-  //remove from cart
   void removeItemByCart(Item item) {
     userCart.remove(item);
     notifyListeners();

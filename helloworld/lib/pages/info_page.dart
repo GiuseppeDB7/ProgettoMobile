@@ -30,7 +30,6 @@ class InfoPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Sezione Sviluppatori
             const SizedBox(height: 15),
             const Text(
               "Developers",
@@ -49,7 +48,6 @@ class InfoPage extends StatelessWidget {
             ),
             const Divider(),
 
-            // Sezione Contatti
             const SizedBox(height: 15),
             const Text(
               "Contacs",
@@ -73,10 +71,8 @@ class InfoPage extends StatelessWidget {
               },
             ),
 
-            // Spazio flessibile per spingere il logo verso il basso
             const Spacer(),
 
-            // Logo centrato
             Center(
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 40.0),

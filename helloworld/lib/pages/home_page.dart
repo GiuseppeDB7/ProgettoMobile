@@ -12,15 +12,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  //firestore
   final FirestoreService firestoreService = FirestoreService();
 
-  //text controller
   final TextEditingController nameController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController budgetController = TextEditingController();
 
-  // Aggiungi questa variabile di stato
   String? firstName;
   List<Map<String, dynamic>> spendingHistory = [];
 
@@ -28,10 +25,9 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     _loadUserName();
-    _loadSpendingHistory(); // Aggiungi questo
+    _loadSpendingHistory();
   }
 
-  // Aggiungi questo metodo per caricare il nome dell'utente
   Future<void> _loadUserName() async {
     final user = FirebaseAuth.instance.currentUser;
     if (user != null) {
@@ -48,7 +44,6 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  // Aggiungi questo metodo per caricare la cronologia delle spese
   Future<void> _loadSpendingHistory() async {
     final user = FirebaseAuth.instance.currentUser;
     if (user == null) return;
@@ -82,16 +77,15 @@ class _HomePageState extends State<HomePage> {
       child: Padding(
         padding: EdgeInsets.fromLTRB(
           25.0,
-          10.0, // Ridotto da 25.0 a 10.0
+          10.0,
           25.0,
           MediaQuery.of(context).viewInsets.bottom + 25.0,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Sostituisci il Container del messaggio di benvenuto con questo
             Container(
-              width: double.infinity, // Per consentire il centramento
+              width: double.infinity,
               margin: const EdgeInsets.only(bottom: 20.0),
               child: RichText(
                 textAlign: TextAlign.center,
@@ -116,13 +110,11 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-
-            // Modifica il Container del form nella HomePage
             Container(
               padding: const EdgeInsets.all(20),
               width: double.infinity,
               constraints: const BoxConstraints(
-                  maxWidth: 500), // Limita la larghezza massima
+                  maxWidth: 500),
               decoration: BoxDecoration(
                 gradient: const LinearGradient(
                   colors: [Color(0xFF000000), Color(0xFF434343)],
@@ -143,7 +135,6 @@ class _HomePageState extends State<HomePage> {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Aggiungi il titolo qui
                   const Text(
                     'New List',
                     style: TextStyle(
@@ -163,11 +154,11 @@ class _HomePageState extends State<HomePage> {
                       ),
                       filled: true,
                       fillColor:
-                          Colors.white.withOpacity(0.15), // Aumentato opacity
+                          Colors.white.withOpacity(0.15),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide:
-                            const BorderSide(color: Colors.white), // Più chiaro
+                            const BorderSide(color: Colors.white),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -188,11 +179,11 @@ class _HomePageState extends State<HomePage> {
                       ),
                       filled: true,
                       fillColor:
-                          Colors.white.withOpacity(0.15), // Aumentato opacity
+                          Colors.white.withOpacity(0.15),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide:
-                            const BorderSide(color: Colors.white), // Più chiaro
+                            const BorderSide(color: Colors.white),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -217,11 +208,11 @@ class _HomePageState extends State<HomePage> {
                             ),
                             filled: true,
                             fillColor: Colors.white
-                                .withOpacity(0.15), // Aumentato opacity
+                                .withOpacity(0.15),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                               borderSide: const BorderSide(
-                                  color: Colors.white), // Più chiaro
+                                  color: Colors.white),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
@@ -298,11 +289,9 @@ class _HomePageState extends State<HomePage> {
                                       TextButton(
                                         onPressed: () {
                                           Navigator.pop(context);
-                                          // Se l'errore è di autenticazione, reindirizza alla pagina di login
                                           if (e
                                               .toString()
                                               .contains('non autenticato')) {
-                                            // Implementa qui la navigazione alla pagina di login
                                           }
                                         },
                                         child: const Text('OK'),
@@ -343,7 +332,6 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Aggiungi il testo "Anteprima"
                   const Text(
                     'Preview',
                     style: TextStyle(
@@ -451,8 +439,6 @@ class _HomePageState extends State<HomePage> {
 }
 
 class FirestoreService {
-  // Add your existing methods here
-
   Future<void> addList(String name, String description, double budget) async {
     final user = FirebaseAuth.instance.currentUser;
     if (user != null) {

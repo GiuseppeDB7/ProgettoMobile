@@ -1,5 +1,3 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:flutter/material.dart';
 import 'package:snapbasket/models/home.dart';
 import 'package:snapbasket/models/item.dart';
@@ -14,7 +12,6 @@ class ListItem extends StatefulWidget {
 }
 
 class _ListItemState extends State<ListItem> {
-  //remove item from cart
   void removeItemFromCart() {
     Provider.of<Cart>(context, listen: false).removeItemByCart(widget.item);
   }

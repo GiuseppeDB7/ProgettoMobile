@@ -46,10 +46,10 @@ class _FramePageState extends State<FramePage> {
         backgroundColor: Colors.grey[300],
         elevation: 0,
         scrolledUnderElevation:
-            0, // Impedisce l'ombreggiatura durante lo scroll
+            0,
         surfaceTintColor:
-            Colors.transparent, // Rimuove la tinta della superficie
-        shadowColor: Colors.transparent, // Rimuove l'ombra
+            Colors.transparent,
+        shadowColor: Colors.transparent,
         leading: Builder(
           builder: (context) {
             return IconButton(
@@ -69,11 +69,11 @@ class _FramePageState extends State<FramePage> {
             child: Text(
               "SnapBasket",
               style: TextStyle(
-                fontSize: 40, // Ridotto da 40 per migliore leggibilità
+                fontSize: 40,
                 fontFamily: "Poppins",
                 fontWeight: FontWeight.w600,
-                letterSpacing: -0.5, // Aggiunto per migliorare la leggibilità
-                color: Colors.black87, // Aggiunto per un contrasto migliore
+                letterSpacing: -0.5,
+                color: Colors.black87,
               ),
             ),
           ),
@@ -182,7 +182,7 @@ class _FramePageState extends State<FramePage> {
                               actions: [
                                 TextButton(
                                   onPressed: () {
-                                    Navigator.pop(context); // Chiude il dialog
+                                    Navigator.pop(context);
                                   },
                                   child: const Text('Back'),
                                 ),
@@ -193,13 +193,13 @@ class _FramePageState extends State<FramePage> {
                                       if (mounted) {
                                         Navigator.pop(
                                           context,
-                                        ); // Chiude il dialog
+                                        );
                                         Navigator.pushReplacement(
                                           context,
                                           MaterialPageRoute(
                                             builder:
                                                 (context) =>
-                                                    const LoginPage(), // Corretto l'indentazione
+                                                    const LoginPage(),
                                           ),
                                         );
                                       }

@@ -22,7 +22,6 @@ class FirestoreService {
     }
   }
 
-  // Get current user's lists
   Stream<QuerySnapshot> getListsStream() {
     final user = FirebaseAuth.instance.currentUser;
     if (user == null) return const Stream.empty();
@@ -33,7 +32,6 @@ class FirestoreService {
         .snapshots();
   }
 
-  // Update list method
   Future<void> updateList(String docID, String newDescription) async {
     try {
       final user = FirebaseAuth.instance.currentUser;
@@ -55,7 +53,6 @@ class FirestoreService {
     }
   }
 
-  // Delete list method
   Future<void> deleteList(String docID) async {
     try {
       final user = FirebaseAuth.instance.currentUser;
